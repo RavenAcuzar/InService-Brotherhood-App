@@ -1,0 +1,35 @@
+page-experience {
+    ion-item{
+        background-color: transparent !important;
+        ion-label{
+          margin: 7px 8px 5px 0 !important;
+        }
+        input{
+          margin:7px 8px 5px 0 !important;
+        }
+      }
+      .item{
+        min-height: 3rem;
+        padding-left: 0;
+        font-size: 13px;
+      }
+      .exp{
+        background-color: #EAEAEA;
+        height: 20vh;
+        width: 100%;
+        margin-bottom: 10px;
+        ion-row{
+          margin-bottom:5px;
+        }
+        ion-col{
+          padding-bottom:0;
+        }
+        h6{
+          margin-bottom: 6px;
+        }
+      }
+      
+      .input-cover{
+        display: none;
+        }
+}

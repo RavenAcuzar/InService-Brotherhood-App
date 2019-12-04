@@ -1,0 +1,46 @@
+page-merch {
+    ion-header [class^="toolbar-background"]{
+        background-color: transparent;        
+    }
+    .scroll-content{
+        margin-top: 0 !important;
+    }
+    .fave-style{
+        height: 8vw !important;
+            width:8vw !important;
+            span{
+                font-size: 4vw;
+            }
+    }
+    .merch-cont{
+        position: relative;
+        .fav{
+            position: absolute;
+            top: 6vw;
+            right: 6vw;
+            button{
+                background-color: transparent !important;
+                color: #1D283F !important;
+                font-size: 5vh !important;
+            }
+        }
+        >.desc{
+            background-color: rgba(37, 90, 46, 0.69);
+            position: absolute;
+            bottom: 4vh;
+            padding: 0 5vw 0 5vw;
+            max-width: 80%;
+            h4{
+                text-align: left !important;
+                color: white;
+                font-size: 2.5vh;
+                padding-top: 2vh;
+            }
+            p{
+                -webkit-margin-before: 0;
+                text-indent: 0;
+                color: white;
+            }
+        }
+    }
+}

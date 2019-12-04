@@ -1,0 +1,53 @@
+page-play-video {
+    .videoPlayer {
+        border: none;
+        z-index: 11;
+        height: 40vh;
+        width: 100%;
+        background-color: black;
+
+        &.fullscreen {
+            height: 100vh;
+            width: 100vw;
+        }
+    }
+    .vid-header {
+        display: flex;
+        align-items: flex-start;
+        padding: 8px 16px 0px 16px;
+
+        .vid-info {
+            flex-grow: 1;
+    
+            h1 { font-weight: normal; font-size: 12pt; margin: 5px 0px; }
+            h4 { font-weight: normal; font-size: 10pt; margin: 7px 0 10px 0; color: #7d7d7d; }
+        }
+
+        #vidDescToggle {
+            flex-shrink: 0;
+            font-size: 16pt;
+            width: 40px;
+            height: 40px;
+
+            color: #3a3a3a;
+            background-color: transparent;
+    
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+    }
+
+    .vid-description {
+        padding: 0 16px;
+        color: #666;
+        font-size: 10pt;
+        margin-bottom: 15px;
+    }
+    > ion-content {
+       
+        > div.scroll-content {
+            position: fixed;
+            margin-top: 48vh !important;
+        }
+    }
+}

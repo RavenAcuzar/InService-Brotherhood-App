@@ -1,0 +1,31 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding no-bounce>
+    <div class="logo">
+        <img src="./assets/imgs/isb-logo.png"/>
+      </div>
+      <ion-list no-lines>
+        <ion-item>
+        <input [(ngModel)]="irid" type="text" placeholder="IRID"/>
+      </ion-item>
+      <ion-item>
+          <input [(ngModel)]="password" type="password" placeholder="Password"/>
+        </ion-item>
+        <a (click)="goToAppMain()">Create Account</a>
+        <ion-item>
+        <button ion-button color="dark" (click)="checkLogin()">LOGIN</button>
+        </ion-item>
+      </ion-list>
+</ion-content>

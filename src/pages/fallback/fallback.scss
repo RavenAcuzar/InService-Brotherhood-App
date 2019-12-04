@@ -1,0 +1,38 @@
+page-fallback {
+    img{
+        position: absolute;
+        top: 0;
+        bottom: 27vh;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 60vw;
+        object-fit: cover;
+    }
+    h5{
+        text-align: center;
+        font-size: 9vw;
+        position: absolute;
+        bottom: 21vh;
+        left: 0;
+        right: 0; 
+        margin: auto;
+        width: 90vw;
+        color: rgba(0, 0, 0, 0.23921568627450981);
+    }
+    .login-button{
+        position: absolute;
+        bottom: 5vh;
+        left: 0;
+        right: 0; 
+        margin: auto !important;
+        width: 90vw;
+        margin: auto;
+    }
+    .toolbar-background{
+        background-color: transparent !important;
+    }
+    button{
+        height: 14vw !important;
+    }
+}

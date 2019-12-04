@@ -1,0 +1,84 @@
+page-mark {
+    ion-header [class^="toolbar-background"]{
+        background-color: transparent;        
+    }
+    .fixed-content{
+        margin-top: 0 !important;
+    }
+    .selectBadge{
+        width: 73%;
+        margin: 0px 11vw;  
+    }
+    .item-ios .radio-ios, .item-md .radio-md {
+        margin: 0 !important
+    }
+
+    .selectBadge ion-item {
+        background: none;
+    }
+  
+    .selectBadge ion-item.item-radio-checked {
+      background: rgba(255, 255, 255, 0.651) !important;
+  }
+  
+    .selectBadge .item .item-inner {
+        border: 0 !important;
+        .input-wrapper ion-label{
+            text-align: center;
+        }
+    }
+  
+  .item-radio .radio-icon {
+    display: none;
+  }
+  .mark-cont{
+    text-align: center;
+    margin-top: 5vh;
+    color: white;
+    padding: 5px 30px 0 30px !important;
+    h1{
+        font-size: 4vh;
+        font-weight: 300;
+    }
+    p{    
+        font-size: 2.5vh;
+        margin: 3vh 0;
+    }
+    .upload-wrapper{
+        position: relative;
+        height: 60vw;
+        .upload-box{
+            background: #1f1f1f;
+            color: #ececec;
+            text-align: center;
+            height: 60vw;
+            width: 60vw;
+            font-size: 3vh;
+            position: absolute;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            .upload-label{
+                position: absolute;
+                right: 0;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                height: 16vh;
+                ion-icon{
+                    font-size: 9vh;
+                }
+            }
+        }
+    }
+  }
+  .buttons-row{
+    width: 90%;
+    margin: 0 5vw;
+      button{
+          width: 100%;
+          height: 7vh;
+      }
+  }
+}

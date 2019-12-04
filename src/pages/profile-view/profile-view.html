@@ -1,0 +1,67 @@
+<!--
+  Generated template for the ProfileViewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ion-list mode="ios">
+    <ion-list-header>
+        <ion-icon item-start name="md-person"></ion-icon>PERSONAL DETAILS
+    </ion-list-header>
+  <ion-item>
+      <ion-label>IRID</ion-label>
+      <div item-content style="color: #676767;">
+        {{profileDetails.IRID}}
+      </div>
+  </ion-item>
+  <ion-item>
+      <ion-label>Email</ion-label>
+      <div item-content style="color: #676767;">
+        {{profileDetails.email}}
+      </div>
+  </ion-item>
+  <ion-item>
+      <ion-label>Name</ion-label>
+      <div item-content style="color: #676767;">
+        {{profileDetails.f_name}} {{profileDetails.m_name}}. {{profileDetails.l_name}}
+      </div>
+  </ion-item>
+  <ion-item>
+      <ion-label>Gender</ion-label>
+      <div item-content style="color: #676767;">
+        {{gender}}
+      </div>
+  </ion-item>
+  <ion-item>
+      <ion-label>Date of Birth</ion-label>
+      <div item-content style="color: #676767;">
+        {{bday}}
+      </div>
+  </ion-item>
+  <ion-list-header>
+      <ion-icon item-start name="ios-people"></ion-icon>NETWORK DETAILS
+  </ion-list-header>
+  <ion-item>
+      <ion-label>Yrs. In Business</ion-label>
+      <div item-content style="color: #676767;">
+        {{profileDetails.yrs_business}}
+      </div>
+  </ion-item>
+  <ion-item>
+      <ion-label>Upline Name</ion-label>
+      <div item-content style="color: #676767;">
+        {{profileDetails.upline_name}}
+      </div>
+  </ion-item>
+
+  <button ion-button full color="button" (click)="goToCreateAccount()">Change Password</button>
+</ion-list>
+</ion-content>
+

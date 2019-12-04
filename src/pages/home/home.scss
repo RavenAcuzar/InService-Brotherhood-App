@@ -1,3 +1,215 @@
 page-home {
-
+    ion-header [class^="toolbar-background"]{
+        background-color: transparent;        
+    }
+    .scroll-content{
+        margin-top: 0 !important;
+    }
+    .event_slides{
+        height: 40vh;
+        position: relative;
+        >img{
+            height: 100%;
+            width: 100vw;
+            object-fit: cover;
+        }
+        .placeholder{
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            width: 100vw;
+            color: rgba(255, 255, 255, 0.48);
+            top: 0;
+            margin: auto;
+            height: fit-content;
+            padding-top: 44px;
+            ion-icon{
+                    font-size: 46px;
+                    @include iphone{
+                        font-size: 50px;
+                    }
+            }
+            h1{
+                font-size: 13px;
+                font-weight: 400;
+                letter-spacing: 3px;
+                @include iphone{
+                        font-size: 18px;
+                    }
+            }
+        }
+        h2{
+            position: absolute;
+            top: 56px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.76);
+            margin: 0;
+            font-weight: 400;
+            letter-spacing: 5px;
+            font-size: 19px;
+            @include iphoneX{
+                margin-top: 27px;
+                font-size: 23px;
+            }
+            @include tablet{
+                margin-top: unset;
+                font-size: 30px;
+            }
+        }
+        ion-slides{
+            position: absolute;
+            bottom: 0;
+            height: 80%;
+            .slide-content{
+                // margin: 20px;
+                margin-top: 36px;
+                height: 22vh;
+                @include iphone{
+                        height: unset;
+                        margin-top: unset;
+                        margin:48px 20px 20px 20px;
+                        img{
+                            height: 24vh;
+                            width: 80vw;
+                            object-fit: cover;
+                        }
+                    }
+                
+                @include iphoneX{
+                    img{
+                            height: 23vh;
+                            width: 90vw;
+                            object-fit: cover;
+                        }
+                }
+                @include tablet{
+                    margin: unset;
+                    height: 29.5vh;
+                     img{
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                }
+                .eventDate{
+                    clip-path: polygon(0% 0%, 100% 0, 100% 72%, 50% 100%, 0 72%);
+                    position: absolute;
+                    // top: 25px;
+                    // right: 30px;
+                    top: 41px;
+                    right: 37px;
+                    @include iphone{
+                        top: 28px;
+                        right: 26px;
+                    }
+                    @include iphoneX{
+                        top: 45px;
+                    }
+                    @include tablet{
+                        top: 6px;
+                        right: 91px;
+                        padding: 20px;
+                    }
+                    background: #399066;
+                    /* width: 24%; */
+                    color: rgba(255, 255, 255, 0.72);
+                    // padding: 13px;
+                    padding: 9px;
+                    text-align: center;
+                    background-image: linear-gradient(rgba(0,0,0,0.4), transparent);
+                    p{
+                        // font-size: 15px;
+                        font-size: 12px;
+                        margin: 0;
+                        @include iphone{
+                            font-size: 14px;
+                        }
+                        @include tablet{
+                            font-size: 25px;
+                        }
+                    }
+                    h3{
+                        margin: 0;
+                        font-size: 22px;
+                        @include iphone{
+                            font-size: 26px;
+                        }
+                        @include tablet{
+                            font-size: 43px;
+                        }
+                    }
+                    p:last-child{
+                        margin-bottom: 20px
+                    }
+                }
+            }
+        }
+    }
+    .homeBtns{
+        display: inline-block;
+        .Hbnt{
+            display: block;
+            height: 15vh;
+            width: 100vw;
+            text-align: center;
+            color: white;
+            position: relative;
+            img{
+                height: 100%;
+                width: 100vw;
+                object-fit: cover;
+            }
+            >div{
+                position: absolute;
+                margin: auto;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                height: fit-content;
+                h3{
+                    font-size: 22px;
+                    font-weight: 400;
+                    letter-spacing: 5px;
+                    margin: 0;
+                    @include iphone{
+                            font-size: 26px;
+                        }
+                    @include iphoneX{
+                            font-size: 31px;
+                        }
+                    @include tablet{
+                        font-size: 6vw;
+                    }
+                }
+                p{
+                    margin:0;
+                    font-weight: 300;
+                    letter-spacing: 13px;
+                    font-size: 14px;
+                    @include iphone{
+                            font-size: 17px;
+                        }
+                    @include iphoneX{
+                            font-size: 20px;
+                        }
+                    @include tablet{
+                        font-size: 4vw;
+                    }
+                }
+                
+            }
+            
+        }
+        .Hbnt::after{
+            display: block;
+            position: relative;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, rgba(63, 63, 63, 0.58) 100%);
+            margin-top: -9.4vh;
+            height: 9.1vh;
+            width: 100%;
+            content: '';
+        }
+    }
 }

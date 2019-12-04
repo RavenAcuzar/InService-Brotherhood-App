@@ -1,0 +1,31 @@
+<!--
+  Generated template for the EventsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title><img src="./assets/imgs/isb-logo.png" style="height: 34px;"/></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <h4>EVENTS</h4>
+  <div *ngFor="let event of eventsData">
+    <ion-card (click)="goToEventView(event.id)">
+        <img [src]="event.thumbnail"/>
+        <div class="event-content">
+          <h6>{{event.title}}</h6>
+          <p class="block-with-text">{{event.longdesc}}</p>
+        </div>
+        <div class="event-date">{{event.startDate2}}</div>
+      </ion-card>
+    </div>
+</ion-content>

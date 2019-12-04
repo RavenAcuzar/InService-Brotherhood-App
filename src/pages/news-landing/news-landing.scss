@@ -1,0 +1,29 @@
+page-news-landing {
+    ion-header [class^="toolbar-background"]{
+        background-color: transparent;        
+    }
+    .scroll-content{
+        margin-top: 0 !important;
+    }
+.news-head{
+        position: relative;
+        img{
+            width: 100vw;
+            display: inline-block;
+            filter: brightness(50%);
+        }
+        h5{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            color: white;
+            height: 16vw;
+            width: 90vw;
+            text-align: center;
+            font-size: 6vw;
+        }
+    }
+}

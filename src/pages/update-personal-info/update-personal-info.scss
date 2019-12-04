@@ -1,0 +1,30 @@
+page-update-personal-info {
+    ion-item{
+        background-color: transparent !important;
+        ion-label{
+          margin: 7px 8px 5px 0 !important;
+        }
+        input{
+          margin:7px 8px 5px 0 !important;
+        }
+      }
+      .item{
+        min-height: 3rem;
+        padding-left: 0;
+        font-size: 13px;
+      }
+    ion-header{
+        ion-title{
+            .toolbar-title-md{
+                padding-right: 20vw;
+            }
+        }
+    }
+    .input-cover{
+      display: none;
+      }
+    .error {
+      color: rgb(223, 62, 62);
+      font-size: 11px;
+    }
+}

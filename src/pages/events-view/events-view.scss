@@ -1,0 +1,33 @@
+page-events-view {
+    .back-button.show-back-button {
+        z-index: 9999999999;
+    }
+    ion-content{
+        color: #0b635d !important;
+        button{
+            height: 7vh !important;
+        }
+    }
+    .title{
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        height: 78px;
+        color: white;
+    }
+    .header-img{
+        height: 18vh;
+        width: 100vw;
+        object-fit: cover;
+        filter: brightness(50%);
+    }
+    .eventDate{
+        text-align: center;
+        font-size: 17px;
+        font-weight: 400;
+    }
+}

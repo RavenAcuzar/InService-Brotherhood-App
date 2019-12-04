@@ -1,18 +1,27 @@
-<ion-menu [content]="content" type="overlay">
+<ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
   </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
+  <ion-content style="background-color: #e9e9e9 !important;">
+      <div class="menubanner" [class.IsLoggedIn]='pageState'>
+          <img *ngIf='!pageState' src="assets/imgs/menubanner.jpg" />
+          <img *ngIf='pageState' src="assets/imgs/menubanner2.jpg" />
+          <div class='infoBanner' *ngIf='pageState'>
+            <h3>{{name}}</h3>
+            <p>{{irid}}</p>
+          </div>
+        </div>
+        <ion-list>
+          <button menuClose ion-item *ngFor="let p of pages" class="menuItems" [class.activeHighlight]="checkActive(p)" (click)="openPage(p)">
+            <ion-icon [name]="p.icon" item-left></ion-icon>{{p.title}}
+          </button>
+          <button menuClose ion-item class="menuItems" (click)="logoutAlert()" [hidden]="!pageState"> <!-- put global boolean login variable here -->
+            <ion-icon name="md-log-out" item-left></ion-icon>LOGOUT
+          </button>
+          <button menuClose ion-item class="menuItems" (click)="login()" [hidden]="pageState"> <!-- put global boolean login variable here -->
+            <ion-icon name="md-log-in" item-left></ion-icon>LOGIN
+          </button>
+        </ion-list>
   </ion-content>
-
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

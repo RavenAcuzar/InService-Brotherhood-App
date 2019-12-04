@@ -1,0 +1,79 @@
+<!--
+  Generated template for the ExclusivesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar>
+    <button ion-button menuToggle color="dark">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <div class="page-title-header" style="height:18vh;">
+    <img src="./assets/imgs/page-header.jpg" style="height:18vh;" />
+    <h1 class="header-title">EXCLUSIVES</h1>
+  </div>
+  <ion-segment [(ngModel)]="type" mode="md">
+    <ion-segment-button value="News">
+      News
+    </ion-segment-button>
+    <ion-segment-button value="Videos">
+      Videos
+    </ion-segment-button>
+    <ion-segment-button value="Gallery">
+      Gallery
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase="'News'">
+      <h4>ISB NEWS</h4>
+      <ion-card *ngFor="let n of news | slice:0:end" (click)="goToNewsLanding(n.newsUrl)">
+        <img [src]="n.image" />
+        <ion-card-content>
+          <ion-card-title [innerHTML]="n.Title">
+          </ion-card-title>
+          <p [innerHTML]="n.Summary">
+          </p>
+        </ion-card-content>
+      </ion-card>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+    <div class="vids" *ngSwitchCase="'Videos'">
+      <h4>ISB VIDEOS</h4>
+      <ion-card *ngFor="let vids of freeVids" (click)="playVideo(vids.id)">
+        <div class="parent">
+          <img src="{{vids.image}}" />
+          <div class="duration">
+            <ion-badge color="duration">{{vids.time}}</ion-badge>
+          </div>
+          <div class="vidplay">
+            <ion-icon name="play"></ion-icon>
+          </div>
+        </div>
+
+        <ion-item>
+          <h2>{{vids.Title}}</h2>
+          <p>
+            <ion-icon name="globe"></ion-icon>: {{vids.language}}
+          </p>
+        </ion-item>
+      </ion-card>
+    </div>
+    <div *ngSwitchCase="'Gallery'">
+      <div *ngFor="let i of gallery">
+        <div class="gallery-title">
+          {{i.title}}
+        </div>
+        <div class="container">
+            <img *ngFor="let im of i.imgs; let in = index;" src="./assets/imgs/{{im.imgSrc}}" (click)="imgPreview(i.imgs,in)">
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

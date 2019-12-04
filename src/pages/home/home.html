@@ -1,18 +1,62 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title><img src="./assets/imgs/isb-logo.png" style="height: 34px;" /></ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<ion-content no-padding no-bounce>
+  <div class='event_slides'>
+    <img src="./assets/imgs/profile-header.jpg">
+    <h2>EVENTS</h2>
+    <div class="placeholder" *ngIf="events.length == 0">
+      <ion-icon name='md-information-circle'></ion-icon>
+     <h1>NO EVENTS AVAILABLE</h1>
+    </div>
+    
+    <ion-slides pager [loop]='isloop' [autoplay]='autoplayDelay' *ngIf="events.length != 0">
+      <ion-slide *ngFor="let e of events"  (click)="goToEvent(e.id)">
+        <div class="slide-content">
+          <img [src]="e.img">
+          <div class="eventDate">
+            <p>{{e.month}}</p>
+            <h3>{{e.day}}</h3>
+            <p>{{e.year}}</p>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div class="homeBtns">
+    <div class="Hbnt" (click)="goToPage('Mark')">
+      <img src="./assets/imgs/menu_btn1.jpg">
+      <div>
+        <p>ISB</p>
+        <h3>MARK</h3>
+      </div>
+    </div>
+    <div class="Hbnt" (click)="goToPage('Merch')">
+       <img src="./assets/imgs/menu_btn3.jpg">
+      <div>
+        <p>ISB</p>
+        <h3>MERCHANDISE</h3>
+      </div>
+    </div>
+    <div class="Hbnt" (click)="goToPage('Exclusives')">
+       <img src="./assets/imgs/menu_btn2.jpg">
+      <div>
+        <p>ISB</p>
+        <h3>EXCLUSIVES</h3>
+      </div>
+    </div>
+    <div class="Hbnt" (click)="goToPage('About')">
+       <img src="./assets/imgs/menu_btn4.jpg">
+      <div>
+        <h3>ABOUT</h3>
+        <p>ISB</p>
+      </div>
+    </div>
+  </div>
 </ion-content>

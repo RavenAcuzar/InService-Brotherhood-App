@@ -1,0 +1,12 @@
+page-image-viewer {
+ion-header [class^="toolbar-background"]{
+        background-color: transparent;        
+    }
+    ion-content{
+        background: black !important;
+        color: white !important;
+    }
+    img{
+        width: 100vw !important;
+    }
+}

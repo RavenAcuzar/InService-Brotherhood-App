@@ -1,0 +1,20 @@
+page-profile-view {
+ ion-list {
+        ion-label{
+            font-style: normal !important;
+        }
+        > ion-list-header[class^="item"]{
+            margin-bottom: 0 !important;
+            background-color: transparent !important;
+            border-top: none !important;
+            color: map-get($colors , dark ) !important;
+        }
+        >ion-item{
+            background-color: transparent !important;
+            >.item-inner .input-wrapper ion-label{
+                color: rgba(11, 100, 94, 0.44)!important;
+            } 
+        }
+        
+    }
+}

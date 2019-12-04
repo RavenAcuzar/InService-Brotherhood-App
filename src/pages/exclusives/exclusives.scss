@@ -1,0 +1,68 @@
+page-exclusives {
+    ion-header [class^="toolbar-background"]{
+        background-color: transparent;        
+    }
+    .scroll-content{
+        margin-top: 0 !important;
+    }
+    .page-title-header::after{
+        height: 14.5vh;
+    }
+    .segment-button.segment-activated {
+        border-color: #768670 !important;
+        font-size: 1.4rem;
+    }
+    .segment-button{
+        color: map-get($colors, primary) !important;
+        border-color: map-get($colors, secondary) !important;
+        max-width: 100% !important;
+    }
+     h4{
+        text-align: center;
+        color: map-get($colors , primary );
+    }
+    .parent {
+        position: relative;
+    }
+    .duration{
+        position: absolute;
+        bottom:4px;
+        right:4px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .vidpoints{
+        position: absolute;
+        top:5px;
+        right:5px;  
+    }
+    .vidplay{
+        position: absolute;
+        top:40%;
+        left:50%;
+        color:rgba(256,256,256,0.5);
+        font-size: 40pt;
+    }
+    .vids{
+        ion-card{
+            ion-label{
+                white-space: normal !important;
+            }
+        }
+    }
+    .container{
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        grid-column-gap: 2px;
+        grid-row-gap: 2px;
+        background: white;
+    }
+    .gallery-title{
+        padding: 20px 10px;
+        font-size: 18px;
+        letter-spacing: 4px;
+        color: #396f6c;
+        font-weight: 400;
+        background: #e4e3e3;
+    }
+}

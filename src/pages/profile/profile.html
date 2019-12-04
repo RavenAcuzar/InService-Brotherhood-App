@@ -1,0 +1,154 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar>
+    <button ion-button menuToggle color="dark">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button color="dark" icon-only (click)="goToProfile()">
+        <ion-icon name="md-contact"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <div class="page-title-header" style="height:18vh;">
+    <img src="./assets/imgs/page-header.jpg" style="height:18vh;" />
+    <div class="nameCont">
+      <h3>{{name}}</h3>
+      <h5>{{irid}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{{email}}</h5>
+    </div>
+  </div>
+  <ion-segment [(ngModel)]="type" mode="md">
+    <ion-segment-button value="Posts">
+      My Posts
+    </ion-segment-button>
+    <ion-segment-button value="Experience">
+      Experiences
+    </ion-segment-button>
+    <ion-segment-button value="Requests">
+      Requests
+    </ion-segment-button>
+    <ion-segment-button value="Merch">
+      Reserved Merchandise
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase="'Posts'" class="myPosts">
+      <div  *ngIf="feeds?.length == 0" class="no-exp">
+        <h3>No posts yet</h3>
+    </div>
+<div *ngIf="feeds?.length > 0">
+      <ion-card *ngFor="let feed of feeds; let i = index;">
+        <ion-item (click)="goToFeed(feed.Id)">
+          <h3><b>{{feed.name}}</b></h3>
+          <!-- <p style="text-indent: 0;">{{feed.irid}}</p> -->
+        </ion-item>
+        <div class="desc" [innerHtml]="feed.message" (click)="goToFeed(feed.Id)" *ngIf="feed.message != ''"></div>
+        <img [src]="feed.images[0].imageLink" style="width: 100vw;" (click)="goToFeed(feed.Id)" *ngIf="feed.images?.length == 1" />
+        <ion-slides style="width: 100vw; background-color:#465f5a;" [pager]="true" (click)="goToFeed(feed.Id)" *ngIf="feed.images?.length > 1" [dir]="isRtl">
+          <ion-slide class="slide" *ngFor="let img of feed.images">
+            <img [src]="img.imageLink" style="width: 100vw;" />
+          </ion-slide>
+        </ion-slides>
+        <div style="padding: 3px 6px">
+          <button class="action-button" ion-button color="primary" clear (click)="addRemoveLike(feed.Id, feed.irid, i, 'like')"
+            *ngIf="!feed.isLiked" [disabled]="!hasProfile">
+            <ion-icon name='md-heart-outline'></ion-icon>
+          </button>
+          <button class="action-button" ion-button color="primary" clear (click)="addRemoveLike(feed.Id, feed.irid, i, 'unlike')"
+            *ngIf="feed.isLiked" [disabled]="!hasProfile">
+            <ion-icon name='md-heart'></ion-icon>
+          </button>
+          <button class="action-button" ion-button color="primary" clear (click)="goToFeed(feed.Id)" [disabled]="!hasProfile">
+            <ion-icon name='ios-chatbubbles-outline'></ion-icon>
+          </button>
+        </div>
+        <ion-card-content>
+          <p style="font-size: 3vw; display: inline-block;" *ngIf="feed.likes != '0'">{{feed.likes}} Likes</p>
+          <p style="font-size: 3vw; margin: 0 7px 2px; display: inline-block" *ngIf="feed.comments != '0'">{{feed.comments}}
+           Comments</p>
+          <p style="font-size: 2.5vw;color: #8e9093;">{{feed.CreatedOn}}</p>
+        </ion-card-content>
+      </ion-card>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+    </div>
+    <div *ngSwitchCase="'Experience'" class="experience">
+      <div *ngIf="!hasExp" class="no-exp">
+        <h3>No experiences yet</h3>
+      </div>
+      <div *ngIf="hasExp" padding>
+        <div padding class="exp" *ngFor="let ex of exp">
+          <div style="padding-left: 12px;">
+            <ion-row>
+              <ion-col col-11 style="padding-left:0;">
+                <h6>{{ex.v_event}}</h6>
+              </ion-col>
+            </ion-row>
+            <ion-row><a>{{ex.country}}</a></ion-row>
+            <ion-row><a>{{ex.event_date}}</a></ion-row>
+            <ion-row>{{ex.inservice}}</ion-row>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngSwitchCase="'Requests'">
+      <div *ngIf="!hesReq" class="no-exp">
+        <h3>No requests yet</h3>
+      </div>
+      <div *ngIf="hesReq">
+        <ion-grid style="padding:0!important;">
+          <ion-row style="background-color: rgba(0, 0, 0, 0.13);padding: 5px;">
+            <ion-col col-5>
+              <b>EVENT</b>
+            </ion-col>
+            <ion-col col-4>
+              <b>REQUEST TO</b>
+            </ion-col>
+            <ion-col col-3 style="text-align: center;">
+              <b>STATUS</b>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let req of reqs" style="padding: 8px 5px 8px 5px; border-bottom: solid 1px rgba(0,0,0,0.13);"
+            (click)="showPopover(req)">
+            <ion-col col-5>
+              {{req.EventName}}
+            </ion-col>
+            <ion-col col-4>
+              {{req.RequestType}}
+            </ion-col>
+            <ion-col col-3 style="text-align: center;">
+              {{req.status}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <div *ngSwitchCase="'Merch'">
+      <div class="no-exp" *ngIf="merchFaves?.length == 0">
+        <h3><ion-icon name="custom-no-list"></ion-icon></h3>
+      </div>
+      <div class="cont" *ngIf="merchFaves?.length > 0">
+        <div class="merch-cont" padding *ngFor="let merch of merchFaves; let i = index;">
+          <img [src]="merch.image" />
+          <div class="desc">
+            <h4 dir=ltr>{{merch.title}}</h4>
+            <p dir=ltr>{{merch.price}}</p>
+          </div>
+          <button ion-button icon-only (click)="removeFavorite(merch)" class="fav fave-style" clear>
+            <ion-icon name="ios-pricetag" style="color: rgba(3, 3, 3, 0.588);"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

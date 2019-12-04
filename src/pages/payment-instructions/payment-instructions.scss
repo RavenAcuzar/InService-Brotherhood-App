@@ -1,0 +1,60 @@
+page-payment-instructions {
+    h3, h6{
+        color: rgba(11, 99, 93, 0.5);
+    }
+    p{
+        text-align: justify;
+        color: rgba(0, 0, 0, 0.64);
+    }
+    ion-header{
+        .toolbar-background{
+            background-color: transparent !important;
+        }
+    }
+    .scroll-content, .fixed-content{
+        margin-top: 0 !important;
+    }
+    .swiper-container{
+        overflow: visible !important;
+        .swiper-pagination{
+            position: fixed !important;
+        }
+    }
+    
+    ion-slide{
+        align-items: baseline !important;
+    }
+    ion-slide:last-child{
+        align-items: center !important;
+    }
+    .bg-isb{
+        position: absolute;
+        top: 0;
+        bottom: 27vh;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 60vw;
+        object-fit: cover;
+    }
+    h5{
+        text-align: center;
+        font-size: 7vw;
+        position: absolute;
+        bottom: 21vh;
+        left: 0;
+        right: 0; 
+        margin: auto;
+        width: 90vw;
+        color: rgba(0, 0, 0, 0.23921568627450981);
+    }
+    .message{
+        text-align: center;
+        position: absolute;
+        bottom: 5vw;
+        left: 0;
+        right: 0; 
+        margin: auto;
+        width: 90vw;
+    }
+}
