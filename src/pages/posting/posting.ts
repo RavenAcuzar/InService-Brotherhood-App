@@ -5,6 +5,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FeedService } from '../../app/services/feed.service';
 import { SocialFeedPage } from '../social-feed/social-feed';
+import { FilePath } from '@ionic-native/file-path';
 
 /**
  * Generated class for the PostingPage page.
@@ -25,7 +26,8 @@ details = { name: "", irid: "", email: "" };
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private platform: Platform, private sanitizer: DomSanitizer,
     private camera: Camera, private file: File,
-    private feedSvc:FeedService, private loadingCtrl:LoadingController) {
+    private feedSvc:FeedService, private loadingCtrl:LoadingController,
+    private filePath:FilePath) {
     this.details = this.navParams.get('details');
   }
 
@@ -42,9 +44,12 @@ details = { name: "", irid: "", email: "" };
       this.camera.getPicture(options).then(ii => {
         console.log(ii);
         if (this.platform.is('android')) {
-          this.file.resolveLocalFilesystemUrl(ii).then(newUrl => {
-            this.selectedImgs.push({ imgSrc: newUrl.nativeURL });
-            console.log(newUrl.nativeURL);
+          this.filePath.resolveNativePath('file://'+ii).then(newUrl => {
+            console.log(newUrl);
+            this.selectedImgs.push({ imgSrc: newUrl });
+            
+          }).catch(e=>{
+            console.log(e);
           });
         }
         else {

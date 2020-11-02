@@ -8,6 +8,7 @@ import { Crop } from '@ionic-native/crop';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { normalizeURL } from 'ionic-angular';
 
+
 /**
  * Generated class for the MarkPage page.
  *
@@ -25,6 +26,7 @@ export class MarkPage {
   badgeKind: string = null;
   isImageSelected: boolean = false;
   isBadgeSelected: boolean = false;
+  private win:any = window;
   private badgeKindImgPath: string = null;
   private imageData: string = null;
   private croppedImagePath: string = null;
@@ -39,6 +41,13 @@ export class MarkPage {
     private camera: Camera,
     private crop: Crop,
     private androidPermissions:AndroidPermissions) {
+      if(this.platform.is('android')){
+        this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
+          result => {
+          if(!result.hasPermission)
+            this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
+        });
+      }
   }
   
   choosePhoto() {
@@ -63,6 +72,7 @@ export class MarkPage {
     this.camera.getPicture(loadPhoto).then(selectedImagePath => {
         this.crop.crop(selectedImagePath).then(croppedImagePath => {
           console.log(croppedImagePath);
+          console.log(this.win.Ionic.WebView.convertFileSrc(croppedImagePath));
           let canvas = <HTMLCanvasElement>this.editorRef.nativeElement;
           let context = canvas.getContext('2d');
   
@@ -80,9 +90,15 @@ export class MarkPage {
                 this.imageData = canvas.toDataURL();
                 imageLoad.dismiss();
               };
-              baseImage.src = this.croppedImagePath;
+              
+              if(this.platform.is('ios')){
+                baseImage.src = normalizeURL(croppedImagePath);
+              }
+              else{
+                baseImage.src = this.win.Ionic.WebView.convertFileSrc(normalizeURL(croppedImagePath));
+              }
             };
-            overlayImage.src = this.badgeKindImgPath;
+            overlayImage.src = normalizeURL(this.badgeKindImgPath);
           } else {
             let baseImage = new Image();
             baseImage.onload = () => {
@@ -92,13 +108,19 @@ export class MarkPage {
               context.drawImage(baseImage, 0, 0, baseImage.width, baseImage.height);
               imageLoad.dismiss();
             };
-            baseImage.src = normalizeURL(croppedImagePath);
+            if(this.platform.is('ios')){
+              baseImage.src = normalizeURL(croppedImagePath);
+            }
+            else{
+              baseImage.src = this.win.Ionic.WebView.convertFileSrc(normalizeURL(croppedImagePath));
+            }
+            
           }
           console.log(normalizeURL(croppedImagePath));
-          this.croppedImagePath = normalizeURL(croppedImagePath);
+          this.croppedImagePath = this.win.Ionic.WebView.convertFileSrc(normalizeURL(croppedImagePath));
           this.isImageSelected = true;
   
-        }, localErrCallback);
+        }, e=>{console.error(e);});
       }, localErrCallback);
   }
 
@@ -150,9 +172,9 @@ export class MarkPage {
         this.imageData = canvas.toDataURL();
         applyLoad.dismiss();
       };
-      baseImage.src = this.croppedImagePath;
+      baseImage.src = normalizeURL(this.croppedImagePath);
     };
-    overlayImage.src = this.badgeKindImgPath;
+    overlayImage.src = normalizeURL(this.badgeKindImgPath);
   }
   private errCallback(err) {
     console.error(JSON.stringify(err));
@@ -174,10 +196,7 @@ export class MarkPage {
         content: 'Saving image to gallery...'
       });
       loading.present();
-      if(this.platform.is('android')){
-      this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(
-        result => {
-      this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE]);
+      
       this.base64ToGallery.base64ToGallery(this.imageData, { prefix: '_img', mediaScanner:true  }).then(libraryItem => {
         loading.dismiss();
 
@@ -198,34 +217,6 @@ export class MarkPage {
         //console.error(e);
         this.errCallback(e);
       });
-      },
-        error => {
-          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
-          this.errCallback(error);
-        }
-      );
-    }else{
-      this.base64ToGallery.base64ToGallery(this.imageData, { prefix: '_img', mediaScanner:true  }).then(libraryItem => {
-        loading.dismiss();
-
-        let alert = this.alert.create({
-          title: 'Success!',
-          message: 'Your image has been successfully saved to your gallery.',
-          buttons: [{
-            text: 'Share',
-            handler: () => { this.share(libraryItem); }
-          }, {
-            text: 'OK',
-            handler: () => { alert.dismiss(); }
-          }],
-          cssClass: 'alert'
-        });
-        alert.present();
-      }, e => {
-        //console.error(e);
-        this.errCallback(e);
-      });
-    }
     } else if (!this.isImageSelected && !this.isBadgeSelected) {
       let alert = this.alert.create({
         title: 'Oops',
@@ -269,6 +260,8 @@ export class MarkPage {
           filepath = libraryItem;
       else
         filepath = prefix + libraryItem;
+
+    console.log("Filepath from Share: "+filepath);
     this.socialSharing.share('#InServiceBrotherhood', '', filepath).then((a) => {
       console.log(JSON.stringify(a));
       if (a) {

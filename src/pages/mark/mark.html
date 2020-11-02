@@ -20,12 +20,12 @@
     <div class="mark-cont" padding>
       <h1>CREATE YOUR ISB MARK</h1>
       <p>Create your own ISB marked photo and share it with others!</p>
-      <button ion-button full color="btn" (click)="choosePhoto()" [hidden]="!isImageSelected">UPLOAD IMAGE</button>
+      <button ion-button full color="btn" (click)="choosePhoto()" [hidden]="!isImageSelected">SELECT ANOTHER IMAGE</button>
       <div class="upload-wrapper" [hidden]="isImageSelected" (click)="choosePhoto()">
         <div class="upload-box">
           <div class="upload-label">
             <ion-icon name="md-image"></ion-icon>
-            <p>UPLOAD IMAGE</p>
+            <p>SELECT IMAGE</p>
           </div>
         </div>
       </div>

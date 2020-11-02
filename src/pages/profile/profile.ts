@@ -94,7 +94,9 @@ export class ProfilePage {
       }
       else{
         //no posts
-        loadingPopup.dismiss();
+        if(loadingPopup)
+          loadingPopup.dismiss();
+        return;
       }
     }).catch(() => {
       let toast = this.toastCtrl.create({
@@ -126,7 +128,7 @@ export class ProfilePage {
         let body = new URLSearchParams();
         body.set('action', 'ISBGetUserExperience');
         body.set('irid', irid);
-        req = this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
           .subscribe(resp => {
             console.log(resp.json())
             this.exp = resp.json();
@@ -158,7 +160,7 @@ export class ProfilePage {
         req.unsubscribe();
       });
       loading.present().then(() => {
-        req = this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
           .subscribe(resp => {
             console.log(resp.json());
             this.reqs = resp.json();

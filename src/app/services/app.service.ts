@@ -1,28 +1,29 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ViewChild, NgZone } from "@angular/core";
 import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { AlertController, LoadingController } from "ionic-angular";
+import { AlertController, LoadingController, App } from "ionic-angular";
 import { PERSONAL_DETAILS_KEY, EXPERIENCE_DATA_KEY, RECOM_KEY, NOTIFCOUNTS, USER_IRID_KEY, USER_DATA_KEY } from "../app.constants";
 import { Storage } from "@ionic/storage";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/toPromise'
+import { BoundTextAst } from "@angular/compiler";
+
+
+
+
+
 
 export type ApplicationDetails = {
     irid: string,
     email: string,
     f_name: string,
-    m_name: string,
     l_name: string,
     card_name: string,
     gender: string,
     birth: string,
-    h_address: string,
     city_address: string,
-    state_address: string,
-    zip_code: string,
     country_address: string,
-    tel_no: string,
     mobile_no: string,
     languages: string,
     yrs: string,
@@ -46,8 +47,7 @@ export type PaymentDetails = {
 
 @Injectable()
 export class AppHTMLService {
-
-    private static API_URL = 'http://bt.the-v.net/service/api.aspx';
+    private static API_URL = 'https://bt.the-v.net/service/api.aspx';
     private options;
     private fileTransfer: FileTransferObject;
     constructor(
@@ -56,7 +56,9 @@ export class AppHTMLService {
         private file: File,
         private alertCtrl: AlertController,
         private storage: Storage,
-        private loadingCtrl: LoadingController
+        private loadingCtrl: LoadingController,
+        private appCtrl: App,
+        public ngZone: NgZone
     ) {
         this.options = new RequestOptions({
             headers: new Headers({
@@ -66,7 +68,7 @@ export class AppHTMLService {
     }
 
 
-    submitUserRequest(eventId: string, irid: string, requestType: string, eventName: string, eventDate: string, eventVenue: string, userEmail:string) {
+    submitUserRequest(eventId: string, irid: string, requestType: string, eventName: string, eventDate: string, eventVenue: string, userEmail: string) {
         let body = new URLSearchParams();
         body.set('action', 'ISBSubmitAction');
         body.set('eventID', eventId);
@@ -90,12 +92,12 @@ export class AppHTMLService {
                         body2.set('action', 'ISBSendEmailRequest');
                         body2.set('irid', irid);
                         body2.set('email', userEmail);
-                        this.http.post(AppHTMLService.API_URL, body2,this.options).subscribe(res=>{
+                        this.http.post(AppHTMLService.API_URL, body2, this.options).subscribe(res => {
                             console.log(res.text());
                         })
                         let youralert = this.alertCtrl.create({
                             title: "Request Submitted!",
-                            message:"We will respond to you as soon one of our team is able, usually this will be within 48 hours as our office hours allow.",
+                            message: "We will respond to you as soon one of our team is able, usually this will be within 48 hours as our office hours allow.",
                             buttons: [
                                 {
                                     text: 'OK',
@@ -133,24 +135,19 @@ export class AppHTMLService {
     }
 
 
-    submitApplicationForm(formData: ApplicationDetails, expData: any) {
+    submitApplicationForm(formData: ApplicationDetails, expData: any, redirect: any) {
         console.log(formData);
         let body = new URLSearchParams();
         body.set('action', 'ISBSubmitApplication');
         body.set('IRID', formData.irid);
         body.set('email', formData.email);
         body.set('f_name', formData.f_name);
-        body.set('m_name', formData.m_name);
         body.set('l_name', formData.l_name);
         body.set('card_name', formData.card_name);
         body.set('gender', formData.gender);
         body.set('birth', formData.birth);
-        body.set('h_address', formData.h_address);
         body.set('city_address', formData.city_address);
-        body.set('state_address', formData.state_address);
-        body.set('zip_code', formData.zip_code);
         body.set('country_address', formData.country_address);
-        body.set('tel_no', formData.tel_no);
         body.set('mobile_no', formData.mobile_no);
         body.set('language', formData.languages);
         body.set('yrs_business', formData.yrs);
@@ -161,7 +158,9 @@ export class AppHTMLService {
         body.set('vlc_grad', formData.vlcGrad);
         body.set('vlcEvent', formData.vlcEvent);
         let req;
-        let loading = this.loadingCtrl.create({ enableBackdropDismiss: true });
+        //DEBUG PURPOSES
+
+        let loading = this.loadingCtrl.create({ content: "Sending Application...", enableBackdropDismiss: true, });
         loading.onDidDismiss(() => {
             req.unsubscribe();
         });
@@ -169,13 +168,19 @@ export class AppHTMLService {
             req = this.http.post(AppHTMLService.API_URL, body, this.options)
                 .subscribe(res => {
                     if (res.text() == "True") {
-                        this.uploadImages('UploadPassport', 'Passport.jpg', formData.passportSrc, formData.irid)
+
+                        let loading2 = this.loadingCtrl.create({ content: "Uploading Passport" });
+                        this.uploadImages('UploadPassport', 'Passport.jpg', formData.passportSrc, formData.irid, loading2)
                             .then(r => {
                                 console.log(r);
-                                this.uploadImages('UploadPhoto', 'Photo.jpg', formData.passImgSrc, formData.irid)
+                                loading2.dismiss();
+                                let loading3 = this.loadingCtrl.create({ content: "Uploading Passport" });
+                                loading2.data.content = "Uploading Photo: 0%";
+                                this.uploadImages('UploadPhoto', 'Photo.jpg', formData.passImgSrc, formData.irid, loading3)
                                     .then(r => {
                                         console.log(r);
                                         console.log(expData.length);
+                                        loading3.dismiss();
                                         if (expData.length > 0)
                                             this.submitUserExperience(expData, formData.irid);
                                         this.storage.set(PERSONAL_DETAILS_KEY, null);
@@ -189,7 +194,7 @@ export class AppHTMLService {
                                                     text: 'OK',
                                                     role: 'cancel',
                                                     handler: () => {
-                                                        //this.navCtrl.setRoot(EventsPage);
+                                                        this.appCtrl.getRootNav().setRoot(redirect);
                                                     }
                                                 }
                                             ]
@@ -197,32 +202,50 @@ export class AppHTMLService {
                                         youralert2.present();
                                     },
                                         error => {
-                                            console.log("ERROR UPLOADING IMAGES! " + error);
+                                            loading3.dismiss();
+                                            console.log("Error!! ", error);
                                         })
                                     .catch(() => {
                                         console.log("ERROR UPLOADING IMAGES!")
                                     })
                             },
                                 error => {
-                                    console.log("ERROR UPLOADING IMAGES! " + error);
+                                    loading2.dismiss();
+                                    console.log("Error!! ", error);
                                 })
                             .catch(() => {
                                 console.log("ERROR UPLOADING IMAGES!")
                             })
                     }
                     else {
-                        console.log("ERROR!!!")
+                        this.showErrorAlert("Something went wrong while submitting your application.");
                     }
                 }, error => {
                     loading.dismiss();
+                    this.showErrorAlert("Something went wrong! Please Try again.");
                 }, () => {
                     loading.dismiss()
                 });
         });
     }
-    private uploadImages(fileKey: string, fileName: string, imagSource: string, irid: string) {
+    //debug purposes///
+    showErrorAlert(error) {
+        let errorAlert = this.alertCtrl.create({
+            title: "ERROR OCCURED!",
+            message: error,
+            buttons: [
+                {
+                    text: "OK",
+                    role: 'Cancel'
+                }
+            ]
+        })
+        errorAlert.present();
+    }
 
-        let uri = encodeURI('http://bt.the-v.net/ISBUpload.aspx');
+    private uploadImages(fileKey: string, fileName: string, imagSource: string, irid: string, loader: any) {
+
+        let uri = encodeURI('https://bt.the-v.net/ISBUpload.aspx');
         let lastIndexOfSlash = imagSource.lastIndexOf('/');
         let trueFileName = imagSource.substring(lastIndexOfSlash + 1);
         let fileContainingDirectory = imagSource.substring(0, lastIndexOfSlash);
@@ -239,7 +262,16 @@ export class AppHTMLService {
                 irid: irid
             }
         }
+        loader.present();
         this.fileTransfer = this.transfer.create();
+        this.fileTransfer.onProgress(e => {
+            this.ngZone.run(() => {
+                loader.setContent("Uploading " + fileName + ": " + (Math.round((e.loaded / e.total) * 100)) + "%");
+            })
+            //loader.data.content = "Uploading "+ fileName +": " + (Math.round((e.loaded / e.total) * 100))+"%";
+            //console.log("Uploaded " + e.loaded.toString() + " of " + e.total.toString());
+        });
+
         return this.fileTransfer.upload(imagSource, uri, options);
         // .then(r => {
         //     console.log(r);
@@ -255,8 +287,6 @@ export class AppHTMLService {
             let body = new URLSearchParams();
             body.set('action', 'ISBSubmitExperience');
             body.set('v_event', exp.v_event);
-            body.set('country', exp.country);
-            body.set('event_date', exp.date);
             body.set('inservice', exp.netname);
             body.set('participant_irid', irid);
             body.set('deptartment', exp.v_dept);
@@ -265,9 +295,10 @@ export class AppHTMLService {
         });
     }
 
-    resetPasswordRequest(irid: string) {
+    // resetPasswordRequest(irid: string) {
 
-    }
+    // }
+
     getRequest(eventID: string, irid: string) {
         let body = new URLSearchParams();
         body.set('action', 'ISBGetRequest');
@@ -293,7 +324,7 @@ export class AppHTMLService {
                 return resp.json()[0];
             }).toPromise();
     }
-    getEventImages(eventID){
+    getEventImages(eventID) {
         let body = new URLSearchParams();
         body.set('action', 'ISBGetEventImages');
         body.set('eventID', eventID);
@@ -302,19 +333,15 @@ export class AppHTMLService {
                 return resp.json()[0];
             }).toPromise();
     }
-    updatePersonalInfo(personalInfos){
+    updatePersonalInfo(personalInfos) {
         let body = new URLSearchParams();
         body.set('action', 'ISBUpdateUserInfo');
         body.set('id', personalInfos.id);
         body.set('irid', personalInfos.irid);
         body.set('gender', personalInfos.gender);
         body.set('bday', personalInfos.bday);
-        body.set('house', personalInfos.house);
         body.set('city', personalInfos.city);
-        body.set('state', personalInfos.state);
-        body.set('zip', personalInfos.zip);
         body.set('country', personalInfos.country);
-        body.set('tel', personalInfos.tel);
         body.set('mob', personalInfos.mob);
         return this.http.post(AppHTMLService.API_URL, body, this.options)
             .map(resp => {

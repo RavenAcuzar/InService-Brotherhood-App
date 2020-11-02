@@ -48,22 +48,33 @@
   <div style="padding: 0px 18px 18px 18px;">
     <ion-item>
       <ion-label color="primary" floating>Languages Spoken</ion-label>
-      <ion-select [(ngModel)]="language" mode="md" interface="popover" multiple="true">
+      <ion-select [(ngModel)]="language" mode="md" interface="popover" multiple="true" (ionChange)="checkIfOthers('lang')">
         <ion-option *ngFor="let lang of languages">{{lang.data}}</ion-option>
+        <ion-option>Others</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item [hidden]="!langOthers">
+        <ion-label  color="primary" >Other language:</ion-label>
+        <ion-input [(ngModel)]="otherlanguage" placeholder="Njerep, Kawishana, Paakantyi"></ion-input>
+        
+    </ion-item>
     <ion-item>
-      <ion-label color="primary">No. of years in business:</ion-label>
+      <ion-label color="primary">Year joined the business:</ion-label>
       <ion-select [(ngModel)]="year" mode="md" interface="popover">
         <ion-option *ngFor="let year of noYears">{{year}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label color="primary" floating>Network group name</ion-label>
-      <ion-select [(ngModel)]="networkGroup" mode="md" interface="popover">
-        <ion-option *ngFor="let net of uplines" [value]="net.id">{{net.data}}</ion-option>
+      <ion-select [(ngModel)]="networkGroup" mode="md" interface="popover" (ionChange)="checkIfOthers('net')">
+        <ion-option *ngFor="let net of uplines" [value]="net.data">{{net.data}}</ion-option>
+        <ion-option>Others</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item  [hidden]="!groupOthers">
+      <ion-label color="primary">Other network group:</ion-label>
+      <ion-input [(ngModel)]="othergroup" placeholder="My Network Group"></ion-input>
+  </ion-item>
     <ion-row>
       <ion-col style="padding-left:0;">
         <ion-item>
@@ -74,6 +85,9 @@
             <ion-option>M</ion-option>
             <ion-option>L</ion-option>
             <ion-option>XL</ion-option>
+            <ion-option>2XL</ion-option>
+            <ion-option>3XL</ion-option>
+            <ion-option>4XL</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -110,7 +124,7 @@
     </ion-row>
     <ion-item [hidden]="vlcEventHide" >
         <ion-label color="primary" floating>What VLC Event?</ion-label>
-        <ion-input [(ngModel)]="vlcEvent" (click)="loadSelectionPage('VLC EVENTS')"></ion-input>
+        <ion-input [(ngModel)]="vlcEvent" (focus)="loadSelectionPage('VLC EVENTS')"></ion-input>
       </ion-item>
     <p style="text-align:center; color: #37837E;">Have you attended any ISB Bootcamp or V Convention? If yes, as a? Participant or Inservice.</p>
     <ion-row style="width:80%; margin-left:auto; margin-right:auto;" radio-group [(ngModel)]="expQ" (ionChange)="selectChange(expQ)">
@@ -133,20 +147,10 @@
     <div padding style="padding-top:0;" [hidden]="hideForm" >
       <ion-item >
         <ion-label color="primary" floating>V event</ion-label>
-        <ion-input [(ngModel)]="v_event" (click)="loadSelectionPage('THE V EVENTS')"></ion-input>
+        <ion-input [(ngModel)]="v_event" (focus)="loadSelectionPage('THE V EVENTS')"></ion-input>
       </ion-item>
-      <ion-item >
-          <ion-label color="primary" floating>Country</ion-label>
-          <ion-input [(ngModel)]="country" (click)="loadSelectionPage('COUNTRY')"></ion-input>
-        </ion-item>
      <ion-row align-items-end>
-       <ion-col col-4>
-          <ion-item>
-              <ion-label color="primary" floating>Date</ion-label>
-              <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>
-            </ion-item>
-       </ion-col>
-       <ion-col col-8>
+       <ion-col>
           <ion-item>
               <ion-label color="primary" floating>Inservice</ion-label>
               <ion-select [(ngModel)]="inservice" mode="md" interface="popover">
@@ -168,8 +172,6 @@
             <ion-col col-11 style="padding-left:0;"><h6>{{exp.v_event}}</h6></ion-col>
             <ion-col col-1><ion-icon name="md-close" (click)="deleteMsg(exp)"></ion-icon></ion-col>
           </ion-row>
-          <ion-row><a>{{exp.country}}</a></ion-row>
-          <ion-row><a>{{exp.date}}</a></ion-row>
           <ion-row>{{exp.netname}}</ion-row>
           <ion-row>{{exp.v_dept}}</ion-row>
       </div>

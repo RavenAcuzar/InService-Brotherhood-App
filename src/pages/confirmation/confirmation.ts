@@ -39,7 +39,7 @@ export class ConfirmationPage {
     let body = new URLSearchParams();
     body.set('action', 'ISBGetUserData');
     body.set('irid', this.irid);
-    this.http.post('http://bt.the-v.net/service/api.aspx', body,this.options)
+    this.http.post( 'https://bt.the-v.net/service/api.aspx', body,this.options)
     .subscribe(resp=>{
       if((resp.json()[0] != null)&&(resp.json()[0].status=='Approved')){
         this.email=resp.json()[0].email;
@@ -53,7 +53,7 @@ export class ConfirmationPage {
         params.set('action', 'ISBSendEmail');
         params.set('irid', irid);
         params.set('email',email);
-        this.http.post('http://bt.the-v.net/service/api.aspx', params,this.options)
+        this.http.post( 'https://bt.the-v.net/service/api.aspx', params,this.options)
         .subscribe(respon=>{
           console.log(respon.text());
           if(respon.text()!='Email Sent!')

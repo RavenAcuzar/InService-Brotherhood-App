@@ -32,7 +32,7 @@ for the first time.
     </ul>
     <p>3. Non-ISB graduates will have a limited view of the application.</p>
     <p> 4. The ISB graduates will be able to access all the functionalities of the App.</p>
-    <p>5.ISB App account registration will be approved within 24 hours.</p>
+    <p>5.ISB App account registration will be approved within 48 working hours.</p>
 <p>6. User shall be logged in to be able to view the contents of the application and to receive new
 notification.</p>
 <p>7. ISB Member shall get the approval by their Upline prior before joining the event.</p>

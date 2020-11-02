@@ -13,7 +13,6 @@ import { ExclusivesPage } from '../pages/exclusives/exclusives';
 import { ProfilePage } from '../pages/profile/profile';
 import { MarkPage } from '../pages/mark/mark';
 import { MerchPage } from '../pages/merch/merch';
-import { SurveyPage } from '../pages/survey/survey';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { LoginPage } from '../pages/login/login';
@@ -66,7 +65,6 @@ import { FeedService } from './services/feed.service';
     ProfilePage,
     MarkPage,
     MerchPage,
-    SurveyPage,
     AboutPage,
     ContactPage,
     LoginPage,
@@ -110,7 +108,6 @@ import { FeedService } from './services/feed.service';
     ProfilePage,
     MarkPage,
     MerchPage,
-    SurveyPage,
     AboutPage,
     ContactPage,
     LoginPage,

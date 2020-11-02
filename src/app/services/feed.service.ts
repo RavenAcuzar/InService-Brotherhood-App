@@ -46,13 +46,17 @@ export class FeedService {
             return new Error;
         })
     }
-    loadFeed(date:string,page:string) {
+    loadFeed(lastID:string) {
+        let num;
+        if(!lastID)
+            num = "0";
+        else
+            num=lastID;
         let body = new URLSearchParams();
-        body.set('action', 'getFeed');
-        body.set('datetime', date);
-        body.set('page', page);
+        body.set('action', 'ISBgetFeed');
+        body.set('lastId', num);
         body.set('count', '5');
-        return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(20000))
             .map(response => {
                 console.log(response);
@@ -72,7 +76,7 @@ export class FeedService {
         body.set('datetime', date);
         body.set('page', page);
         body.set('count', '5');
-        return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(20000))
             .map(response => {
                 console.log(response);
@@ -88,7 +92,7 @@ export class FeedService {
         let body = new URLSearchParams();
         body.set('action', 'getSingleFeed');
         body.set('id', id);
-        return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(30000))
             .map(response => {
                 try {
@@ -103,7 +107,7 @@ export class FeedService {
         let body = new URLSearchParams();
         body.set('action', 'getFeedComments');
         body.set('postId', id);
-        return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(30000))
             .map(response => {
                 try {
@@ -121,7 +125,7 @@ export class FeedService {
         body.set('name', details.name);
         body.set('irid', details.irid);
         body.set('message', message);
-        return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(30000))
             .map(response => {
                 try {
@@ -136,12 +140,12 @@ export class FeedService {
     }
     postFeed(details, message: string, imgs: any) {//returns post Id if success, else ""
         let body = new URLSearchParams();
-        body.set('action', 'postFeed');
+        body.set('action', 'ISBpostFeed');
         body.set('name', details.name);
         body.set('email', details.email);
         body.set('irid', details.irid);
         body.set('message', message);
-        return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(30000))
             .map(response => {
                 try {
@@ -191,7 +195,7 @@ export class FeedService {
         let body = new URLSearchParams();
         body.set('action', 'activatePost');
         body.set('postId', id);
-        return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(30000))
             .map(response => {
                 try {
@@ -229,7 +233,7 @@ export class FeedService {
         body.set('action', 'addRemoveFeedLike');
         body.set('id', id);
         body.set('type', type);
-        let p = this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+        let p = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(30000))
             .map(response => {
                 try {
@@ -279,11 +283,11 @@ export class FeedService {
     }
     uploadImages(imgSrc: string, postId: string, isError?) {
 
-        let uri = encodeURI('http://bt.the-v.net/ISBUpload.aspx');
+        let uri = encodeURI( 'https://bt.the-v.net/ISBUpload.aspx');
         let lastIndexOfSlash = imgSrc.lastIndexOf('/');
         let trueFileName = imgSrc.substring(lastIndexOfSlash + 1);
         let fileContainingDirectory = imgSrc.substring(0, lastIndexOfSlash);
-
+        
         return this.file.resolveLocalFilesystemUrl(imgSrc).then(fileInfo => {
             let files = fileInfo as FileEntry;
             files.file(success => {

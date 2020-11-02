@@ -33,10 +33,7 @@ page-post-view {
         }
     }
     
-    ion-header [class^="toolbar-background"] {
-        background-color: transparent;
-        
-    }
+    
     ion-title{
         div{color:map-get($colors, light) !important;}
     }

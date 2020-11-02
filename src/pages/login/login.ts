@@ -7,6 +7,7 @@ import { AppStateService } from '../../app/services/app_state.service';
 import { PersonalDetailsPage } from '../personal-details/personal-details';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
+import { SocialFeedPage } from '../social-feed/social-feed';
 
 /**
  * Generated class for the LoginPage page.
@@ -49,13 +50,13 @@ export class LoginPage {
       body.set('action', 'ISBCheckLogin');
       body.set('irid', this.irid);
       body.set('password', this.password);
-      req = this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+      req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
         .subscribe(res => {
           if (res.text() == "True") {
             this.storage.set(LOGGED_IN_KEY, true).then(() => {
               this.storage.set(USER_IRID_KEY, this.irid).then(() => {
                 this.saveUserData();
-                this.goToHome();
+                
               })
             })
           }
@@ -93,6 +94,7 @@ export class LoginPage {
         console.log(userDetails);
         AppStateService.publishAppStateChange(this.events);
         loading.dismiss();
+        this.goToHome(userDetails.isb_grad);
       }).catch(() => {
         loading.dismiss();
       })
@@ -102,8 +104,8 @@ export class LoginPage {
   goToAppMain() {
     let youralert = this.alertCtrl.create({
       title: "Personal Information Requirement",
-      message: `Please note that these personal information, such as gender, birthdate, address, zipcode, and phone number are required details from users to grant exclusive access to the app.
-        <br/> There is a designated section that allows registered users to submit applications for events that require the same set of information.`,
+      message: `Please note that these personal information, such as gender, birthdate, address, and phone number are optional fields for users who want to register.
+        <br/> There is a designated section that allows registered users to submit applications for events where the same set of information is needed. In the case the user didn't provide the set of information, the user will be asked for the following information upon attempting to apply for an event.`,
       buttons: [
         {
           text: 'Agree',
@@ -121,8 +123,13 @@ export class LoginPage {
     });
     youralert.present();
   }
-  goToHome() {
-    this.navCtrl.setRoot(HomePage);
+  goToHome(is_grad) {
+    if(is_grad=="True"){
+      this.navCtrl.setRoot(SocialFeedPage);
+    }
+    else{
+      this.navCtrl.setRoot(HomePage);
+    }
   }
 
 

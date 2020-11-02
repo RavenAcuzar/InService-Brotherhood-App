@@ -26,7 +26,7 @@ export class SocialFeedPage {
   details = { name: "", irid: "", email: "" };
   toastReload: Toast;
   hasProfile: boolean;
-  end = 1;
+  end = 0;
   feeds = [];
   private isLeaving: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -73,11 +73,10 @@ export class SocialFeedPage {
     }
   }
   public loadFeed(page, loadingPopup?) {
-    return this.storage.get(INITIAL_DATE_LOAD).then(d => { //load date value from initial load to prvent overlap with paging
-      console.log(d);
-      return this.feedSvc.loadFeed(d,page).then(feedArry => {
+      return this.feedSvc.loadFeed(page).then(feedArry => {
         console.log(feedArry);
         if (feedArry.length > 0) {
+          this.setEnd(feedArry[feedArry.length-1].RunningNum);
           let proms = feedArry.map(e => {
             return this.faveSvc.checkIfFave(e.Id, 'Feed').then(val => {
               e.fave = val;
@@ -98,7 +97,9 @@ export class SocialFeedPage {
         }
         else {
           //no posts
+          if(loadingPopup)
           loadingPopup.dismiss();
+          return;
         }
       }).catch(() => {
         let toast = this.toastCtrl.create({
@@ -115,7 +116,9 @@ export class SocialFeedPage {
         this.toastReload = toast;
         loadingPopup.dismiss();
       })
-    })
+  }
+  setEnd(endID){
+    this.end = endID;
   }
   // reEnter() {
   //   this.storage.set(ASK_DATO_DETAILS, null).then(() => {
@@ -186,7 +189,7 @@ export class SocialFeedPage {
       }
       else {
         this.hasProfile = true;
-        this.details.name = details.f_name + " " + details.m_name +" "+details.f_name;
+        this.details.name = details.f_name + " " + details.m_name +" "+details.l_name;
         this.details.irid = details.IRID;
         this.details.email = details.email;
       }
@@ -250,7 +253,6 @@ export class SocialFeedPage {
   doInfinite(infiniteScroll) {
 
     setTimeout(() => {
-      this.end +=1;
       this.loadFeed(this.end).then(()=>{
         infiniteScroll.complete();
       });

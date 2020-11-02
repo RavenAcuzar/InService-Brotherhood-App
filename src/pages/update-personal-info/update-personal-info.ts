@@ -22,17 +22,12 @@ export class UpdatePersonalInfoPage {
   irid = '';
   email_add = '';
   f_name = '';
-  m_name = '';
   l_name = '';
   card_name = '';
   gender = '';
   myDate = '';
-  h_address = '';
   city_address = '';
-  state_address = '';
-  zip_code = '';
   country = '';
-  tel_no = '';
   mob_no = '';
   allValues = {};
   signupform: FormGroup;
@@ -47,7 +42,6 @@ export class UpdatePersonalInfoPage {
         this.irid = details.IRID.replace(/\s/g, '');
         this.email_add = details.email;
         this.f_name = details.f_name;
-        this.m_name = details.m_name;
         this.l_name = details.l_name;
         this.card_name = details.card_name;
         if(details.gender == "False"){
@@ -57,13 +51,8 @@ export class UpdatePersonalInfoPage {
           this.gender= "Female";
         }
         this.myDate = new Date(details.birth).toISOString();
-        this.h_address = details.h_address;
         this.city_address = details.city_address;
-        this.state_address = details.state_address;
-        this.zip_code = details.zip_code;
         this.country = details.country;
-        this.tel_no = details.tel_no;
-        this.mob_no = details.mob_no;
       }
     })
   }
@@ -78,16 +67,11 @@ export class UpdatePersonalInfoPage {
         irid: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
         f_name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]),
-        m_name: new FormControl('', [Validators.pattern('[a-zA-Z .]*'), Validators.maxLength(4)]),
         l_name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]),
         card_name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4)]),
-        house_street: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9 .-]*'), Validators.minLength(4)]),
         city: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]),
-        state: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]),
-        zip_code: new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
         country: new FormControl('', [Validators.required]),
         bday: new FormControl('', [Validators.required]),
-        tel_no: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'),Validators.minLength(8),Validators.maxLength(15)]),
         mob_no: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'),Validators.minLength(8),Validators.maxLength(15)]),
       });
   }
@@ -125,12 +109,8 @@ export class UpdatePersonalInfoPage {
         irid:this.irid,
         gender: this.gender,
         bday: this.myDate,
-        house: this.h_address,
         city: this.city_address,
-        state: this.state_address,
-        zip: this.zip_code,
         country: this.country,
-        tel: this.tel_no,
         mob: this.mob_no
       }).then(resp=>{
         if(resp=="True"){

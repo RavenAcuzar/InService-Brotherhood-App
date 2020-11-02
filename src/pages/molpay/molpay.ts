@@ -13,6 +13,7 @@ declare var molpay: any;
  */
 export type PaymentDetails = {
   // Mandatory String. Values obtained from MOLPay.
+  'mp_dev_mode'?: boolean,
   'mp_username': string,
   'mp_password': string,
   'mp_merchant_ID': string,
@@ -62,11 +63,12 @@ export class MolpayPage {
     }
     this.storage.get(USER_DATA_KEY).then(userdetails => {
       this.paymentDetails = {
-        'mp_username': 'api_vglobal',
-        'mp_password': 'api_Dop21DBhe#',
-        'mp_merchant_ID': 'vglobal',
+        'mp_dev_mode': true,
+        'mp_username': 'api_SB_vglobal',
+        'mp_password': 'api_LG2802BaLv#',
+        'mp_merchant_ID': 'SB_vglobal',
         'mp_app_name': 'vglobal',
-        'mp_verification_key': 'bdb41102ef32cf60381c7687521a27eb',
+        'mp_verification_key': '861d91c19e7e027bcaad392b8343f53e',
         'mp_amount': this.eventPrice, // Minimum 1.01
         'mp_order_ID': this.orderID,
         'mp_currency': 'MYR',

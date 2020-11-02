@@ -36,7 +36,7 @@ export class NewsLandingPage {
       req.unsubscribe();
     });
     loading.present().then(() => {
-      req = this.http.post('http://cums.the-v.net/site.aspx', body, options)
+      req = this.http.post( 'https://cums.the-v.net/site.aspx', body, options)
         .subscribe(resp => {
           this.hasLoaded = true;
           console.log(resp.json()[0])

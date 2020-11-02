@@ -13,7 +13,7 @@
   <ion-slides pager [initialSlide]="index" zoom paginationType="fraction">
     <ion-slide *ngFor="let img of images">
       <div class="swiper-zoom-container">
-        <img src="./assets/imgs/{{img.imgSrc}}">
+        <img src="{{img.imgSrc}}">
       </div>
     </ion-slide>
   </ion-slides>

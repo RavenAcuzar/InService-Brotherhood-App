@@ -47,29 +47,24 @@
   <p class="header-title-page">NAME OF UPLINE</p>
   <div style="padding: 20px 18px 18px 18px;">
       <p style="text-align:center; color: #37837E;">
-        Please select your working upline name. He / She will be the person incharge who approve your application upon request for any event.</p>
-        <form novalidate [formGroup]="signupform">
-        <ion-item>
+        Please select your upline name. He / She will be the person incharge who approve your application upon request for any event.</p>
+        
+        
+        <ion-item >
           <ion-label color="primary" floating>Name of Upline</ion-label>
-          <ion-input [(ngModel)]="up" formControlName="NameUp"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="!signupform.get('NameUp').valid && signupform.get('NameUp').touched" no-lines>
-          <div class="error" >
-            Alphabetic characters only!
-          </div>
+          <ion-input [(ngModel)]="up" (focus)="loadSelectionPage('UPLINES')"></ion-input>
         </ion-item>
           <ion-item>
               <ion-label color="primary" floating>V Partner/Associate V Partner/V Council</ion-label>
-              <ion-input [(ngModel)]="v_pos" formControlName="VPos"></ion-input>
+              <ion-select [(ngModel)]="v_pos" mode="md" interface="popover" (ngModelChange)="checkForm()">
+                <ion-option>V Partner</ion-option>
+                <ion-option>Associate V Partner</ion-option>
+                <ion-option>V Council</ion-option>
+              </ion-select>
             </ion-item>
-            <ion-item *ngIf="!signupform.get('VPos').valid && signupform.get('VPos').touched" no-lines>
-              <div class="error" >
-                Alphabetic characters only!
-              </div>
-            </ion-item>
-        </form>
+
   </div>
 </ion-content>
 <ion-footer no-border>
-  <button ion-button full color="button" (click)="next()" class="cont-btn" [disabled]="signupform.invalid">CONTINUE</button>
+  <button ion-button full color="button" (click)="next()" class="cont-btn" [disabled]="invalid">CONTINUE</button>
 </ion-footer>

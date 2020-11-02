@@ -4,6 +4,7 @@ import { UploadPage } from '../upload/upload';
 import { Storage } from '@ionic/storage';
 import { RECOM_KEY } from '../../app/app.constants';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SelectionPage } from '../selection/selection';
 
 /**
  * Generated class for the RecommendedPage page.
@@ -22,7 +23,7 @@ export class RecommendedPage {
   up='';
   v_pos = '';
   allVal = {};
-  signupform: FormGroup;
+  invalid=true;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public storage: Storage,
@@ -31,14 +32,20 @@ export class RecommendedPage {
         if(values!=null){
           this.up = values.up;
           this.v_pos = values.v_pos;
+          this.checkForm();
         }
       })
   }
-  ngOnInit(){
-    this.signupform = new FormGroup({
-      NameUp: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)]),
-      VPos: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(2)])
-    });
+  loadSelectionPage(value){
+    //console.log(value)
+    this.navCtrl.push(SelectionPage,{type:value});
+  }
+  checkForm(){
+    console.log("checked");
+      if(this.up!='' && this.v_pos!='')
+        this.invalid = false;
+      else
+        this.invalid=true;
   }
   next(){
     if(this.formValidate()){
@@ -75,6 +82,13 @@ export class RecommendedPage {
     }
 
   }
+  ionViewWillEnter() {
+		if (this.navParams.get('selection')) {
+			var val = this.navParams.get('selection');
+      this.up = val.value;
+      this.checkForm();
+		}
+	}
   goToUpload(){
     this.navCtrl.push(UploadPage);
   }

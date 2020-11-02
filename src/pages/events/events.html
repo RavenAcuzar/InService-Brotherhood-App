@@ -17,15 +17,51 @@
 
 
 <ion-content>
-  <h4>EVENTS</h4>
-  <div *ngFor="let event of eventsData">
-    <ion-card (click)="goToEventView(event.id)">
-        <img [src]="event.thumbnail"/>
-        <div class="event-content">
-          <h6>{{event.title}}</h6>
-          <p class="block-with-text">{{event.longdesc}}</p>
+  <ion-segment [(ngModel)]="type" mode="md">
+    <ion-segment-button value="e">
+      Events
+    </ion-segment-button>
+    <ion-segment-button value="pe">
+      Past Events
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase="'e'">
+      <h4>EVENTS</h4>
+      <div *ngIf="eventsData?.length > 0">
+      <div *ngFor="let event of eventsData" >
+        <ion-card (click)="goToEventView(event.id, False)">
+            <img [src]="event.thumbnail"/>
+            <div class="event-content">
+              <h6>{{event.title}}</h6>
+              <p class="block-with-text">{{event.longdesc}}</p>
+            </div>
+            <div class="event-date">{{event.startDate2}}</div>
+          </ion-card>
         </div>
-        <div class="event-date">{{event.startDate2}}</div>
-      </ion-card>
+      </div>
+        <div  *ngIf="eventsData?.length == 0" class="no-exp">
+          <h3><ion-icon name="custom-no-list"></ion-icon></h3>
+      </div>
     </div>
+    <div *ngSwitchCase="'pe'">
+      <h4>PAST EVENTS</h4>
+      <div *ngIf="eventsData2?.length > 0">
+      <div *ngFor="let event of eventsData2" >
+        <ion-card (click)="goToEventView(event.id, True)">
+            <img [src]="event.thumbnail"/>
+            <div class="event-content">
+              <h6>{{event.title}}</h6>
+              <p class="block-with-text">{{event.longdesc}}</p>
+            </div>
+            <div class="event-date">{{event.startDate2}}</div>
+          </ion-card>
+        </div>
+      </div>
+        <div  *ngIf="eventsData2?.length == 0" class="no-exp">
+          <h3><ion-icon name="custom-no-list"></ion-icon></h3>
+      </div>
+    </div>
+  </div>
+  
 </ion-content>

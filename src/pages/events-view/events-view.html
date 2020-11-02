@@ -22,7 +22,9 @@
   <div padding>
     <h4 class="eventDate">{{eventDetails.startDate2}}</h4>
     <div [innerHTML]="eventDetails.longdesc" padding></div>    
+    <div [hidden]="fromPast">
       <button ion-button color="button" full style="margin-bottom: 12px;" [disabled]="disabled" (click)="submitRequest(eventDetails.id,'Participate',eventDetails.title, eventDetails.startDate2, eventDetails.eventVenue)">PARTICIPATE</button>
       <button ion-button color="button" full [disabled]="disabled2" (click)="submitRequest(eventDetails.id,'Serve',eventDetails.title, eventDetails.startDate2, eventDetails.eventVenue)">SERVE</button>
+    </div>
   </div>
 </ion-content>

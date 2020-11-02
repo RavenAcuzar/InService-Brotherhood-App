@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { COUNTRIES, VLCEVENTS, VEVENTS } from '../../app/app.constants';
+import { COUNTRIES, VLCEVENTS, VEVENTS, UPLINES } from '../../app/app.constants';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the SelectionPage page.
@@ -14,17 +15,38 @@ import { COUNTRIES, VLCEVENTS, VEVENTS } from '../../app/app.constants';
   templateUrl: 'selection.html',
 })
 export class SelectionPage {
-  items: any[];
+  items=[];
   callback;
   title;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private storage:Storage) {
+    
+    
+  }
+  ionViewDidEnter(){
     this.title = this.navParams.get('type');
+    console.log(this.title);
     if(this.title == 'COUNTRY'){
-      this.items = COUNTRIES;
+      this.storage.get(COUNTRIES).then(ev=>{
+        console.log(ev);
+       this.items = ev;
+      });
     } else if(this.title == 'VLC EVENTS'){
-      this.items = VLCEVENTS;
-    } else if(this.title = 'THE V EVENTS'){
-      this.items = VEVENTS;
+      this.storage.get(VLCEVENTS).then(ev=>{
+        console.log(ev);
+       this.items = ev;
+      });
+    } else if(this.title == 'THE V EVENTS'){
+      this.storage.get(VEVENTS).then(ev=>{
+        console.log(ev);
+        this.items = ev;
+      });
+    } else if(this.title == 'UPLINES'){
+      console.log("correct!")
+      this.storage.get(UPLINES).then(ev=>{
+        console.log(ev);
+        this.items = ev;
+      });
     }
   }
   radioChecked(value){

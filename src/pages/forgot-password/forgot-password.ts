@@ -74,7 +74,7 @@ export class ForgotPasswordPage {
           body.set('action', 'ISBCheckLogin');
           body.set('irid', irid);
           body.set('password', this.c_pass);
-          req = this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+          req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .subscribe(res => {
               if (res.text() == "True") {
                 this.not_confirmed = false;
@@ -124,7 +124,7 @@ export class ForgotPasswordPage {
           body.set('irid', irid);
           body.set('password', this.c_pass);
           body.set('n_password', this.n_pass);
-          req = this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+          req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .subscribe(res => {
               if (res.text() == "True") {
                 //redirect to confirm

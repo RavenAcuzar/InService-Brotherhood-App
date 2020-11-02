@@ -78,7 +78,7 @@ export class FavoritesService {
                 body.set('action', 'getFavorites');
                 body.set('itemType', itemType);
                 body.set('idList', ids.toString());
-                return this.http.post('http://bt.the-v.net/service/api.aspx', body, this.options)
+                return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
                 .pipe(timeout(20000))
                 .map(response=>{
                     console.log(response.json());

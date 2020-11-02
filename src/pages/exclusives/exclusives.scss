@@ -56,6 +56,11 @@ page-exclusives {
         grid-column-gap: 2px;
         grid-row-gap: 2px;
         background: white;
+        grid-auto-rows: 24vw;
+        img{
+            object-fit: cover;
+            align-self: stretch;
+        }
     }
     .gallery-title{
         padding: 20px 10px;
@@ -65,4 +70,22 @@ page-exclusives {
         font-weight: 400;
         background: #e4e3e3;
     }
+    .no-exp{
+        height: 86vh;
+        display: inline-block;
+        position: relative;
+        width: 100vw;
+            h3{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                height: 33vw;
+                text-align: center;
+                color: rgba(0, 0, 0, 0.31);
+                font-size: 8vw;
+            }
+        }
 }

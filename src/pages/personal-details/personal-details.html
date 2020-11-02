@@ -70,8 +70,7 @@
               Invalid Email Address format!
             </div>
           </ion-item>
-      <ion-row>
-        <ion-col col-9 style="padding-left:0;">
+ 
           <ion-item>
             <ion-label color="primary" floating>First Name *</ion-label>
             <ion-input [(ngModel)]="f_name" formControlName="f_name"></ion-input>
@@ -81,19 +80,7 @@
                 Alphabetic characters only!
               </div>
             </ion-item>
-        </ion-col>
-        <ion-col col-3 style="padding-right:0;">
-          <ion-item>
-            <ion-label color="primary" floating>M.I.</ion-label>
-            <ion-input maxlength="4" [(ngModel)]="m_name" formControlName="m_name"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="!signupform.get('m_name').valid && signupform.get('m_name').touched" no-lines>
-              <div class="error" >
-                Alphabetic characters only!
-              </div>
-            </ion-item>
-        </ion-col>
-      </ion-row>
+
       <ion-item>
         <ion-label color="primary" floating>Last Name *</ion-label>
         <ion-input [(ngModel)]="l_name" formControlName="l_name"></ion-input>
@@ -123,17 +110,6 @@
         <ion-label color="primary">Date of birth</ion-label>
         <ion-datetime displayFormat="MMMM DD, YYYY" max="2000-12-31" [(ngModel)]="myDate" formControlName="bday"></ion-datetime>
       </ion-item>
-      <ion-item>
-        <ion-label color="primary" floating>House No., Street</ion-label>
-        <ion-input [(ngModel)]="h_address"formControlName="house_street"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="!signupform.get('house_street').valid && signupform.get('house_street').touched" no-lines>
-          <div class="error" >
-              Alphanumeric, '.', and '-' characters only!
-          </div>
-        </ion-item>
-      <ion-row>
-        <ion-col col-6 style="padding-left:0;">
           <ion-item>
             <ion-label color="primary" floating>City/Municipality</ion-label>
             <ion-input [(ngModel)]="city_address" formControlName="city"></ion-input>
@@ -143,55 +119,14 @@
                   Alphabetic characters only!
               </div>
             </ion-item>
-        </ion-col>
-        <ion-col col-6 style="padding-right:0;">
           <ion-item>
-            <ion-label color="primary" floating>State</ion-label>
-            <ion-input [(ngModel)]="state_address" formControlName="state"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="!signupform.get('city').valid && signupform.get('city').touched" no-lines>
-              <div class="error" >
-                  Alphabetic characters only!
-              </div>
-            </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-4 style="padding-left:0;">
-          <ion-item>
-            <ion-label color="primary" floating>ZIP Code</ion-label>
-            <ion-input type="tel" maxlength="10" [(ngModel)]="zip_code" formControlName="zip_code"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="!signupform.get('zip_code').valid && signupform.get('zip_code').touched" no-lines>
-              <div class="error" >
-                  Numeric characters only!
-              </div>
-            </ion-item>
-        </ion-col>
-        <ion-col col-8 style="padding-right:0;">
-          <ion-item >
             <ion-label color="primary" floating>Country</ion-label>
-            <ion-input [(ngModel)]="country" formControlName="country"  (click)="loadSelectionPage('COUNTRY')"></ion-input>
+            <ion-input [(ngModel)]="country" [ngModelOptions]="{standalone: true}" (focus)="loadSelectionPage('COUNTRY')"></ion-input>
           </ion-item>
-          <ion-item *ngIf="!signupform.get('country').valid && signupform.get('country').touched" no-lines>
-              <div class="error" >
-                 Country Required!
-              </div>
-            </ion-item>
-        </ion-col>
-      </ion-row>
+          
       <ion-item>
-        <ion-label color="primary" floating>Telephone No.</ion-label>
-        <ion-input type="tel" [(ngModel)]="tel_no" formControlName="tel_no"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="!signupform.get('tel_no').valid && signupform.get('tel_no').touched" no-lines>
-          <div class="error" >
-              Numeric characters only!
-          </div>
-        </ion-item>
-      <ion-item>
-        <ion-label color="primary" floating>Mobile Phone No.</ion-label>
-        <ion-input type="tel" [(ngModel)]="mob_no" formControlName="mob_no"></ion-input>
+        <ion-label color="primary" stacked>Mobile Phone No.</ion-label>
+        <ion-input type="tel" [(ngModel)]="mob_no" formControlName="mob_no" placeholder="+99 (999) 999 9999"></ion-input>
       </ion-item>
       <ion-item *ngIf="!signupform.get('mob_no').valid && signupform.get('mob_no').touched" no-lines>
           <div class="error" >

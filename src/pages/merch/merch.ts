@@ -42,7 +42,7 @@ export class MerchPage {
     });
     loadingPopup.present();
 
-    let url = 'http://cums.the-v.net/file.aspx';
+    let url =  'https://cums.the-v.net/isbMerch.aspx';
     this.http.request(url)
       .pipe(timeout(4000))
       .subscribe((result: any) => {

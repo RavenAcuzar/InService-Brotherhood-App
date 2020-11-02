@@ -38,10 +38,10 @@ export class PlayVideoPage {
       req.unsubscribe();
     });
     loading.present().then(()=>{
-    req = this.http.post('http://cums.the-v.net/site.aspx', body, this.options)
+    req = this.http.post( 'https://cums.the-v.net/site.aspx', body, this.options)
     .subscribe(resp=>{
       this.videoDetails = resp.json()[0];
-      this.safeVideoUrl = this.sanitize.bypassSecurityTrustResourceUrl('http://players.brightcove.net/3745659807001/67a68b89-ec28-4cfd-9082-2c6540089e7e_default/index.html?videoId='+id);
+      this.safeVideoUrl = this.sanitize.bypassSecurityTrustResourceUrl( 'http://players.brightcove.net/3745659807001/67a68b89-ec28-4cfd-9082-2c6540089e7e_default/index.html?videoId='+id);
       console.log(this.videoDetails);
     }, error=>{
       loading.dismiss();

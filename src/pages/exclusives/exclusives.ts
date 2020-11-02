@@ -23,6 +23,7 @@ export class ExclusivesPage {
   end = 5;
   freeVids = [];
   gallery=[];
+  apiURL="https://bt.the-v.net/service/api.aspx";
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private http: Http,
     private loadingCtrl: LoadingController) {
@@ -41,16 +42,15 @@ export class ExclusivesPage {
       })
     });
     let body = new URLSearchParams();
-    body.set('action', 'get_Search');
-    body.set('keyword', 'ISB');
-    body.set('Type', 'News');
+    body.set('action', 'ISBgetExclusive');
+    body.set('type', 'News');
     let req;
     let loading = this.loadingCtrl.create({ enableBackdropDismiss: true });
     loading.onDidDismiss(() => {
       req.unsubscribe();
     });
     loading.present().then(() => {
-      req = this.http.post('http://cums.the-v.net/site.aspx', body, options)
+      req = this.http.post(this.apiURL, body, options)
         .subscribe(resp => {
           console.log(resp.json())
           this.news = resp.json();
@@ -80,9 +80,8 @@ export class ExclusivesPage {
   ///////VIDEOS FUNCTIONS//////////
   getFreeVids() {
     let body = new URLSearchParams();
-    body.set('action', 'get_Search');
-    body.set('keyword', 'isb');
-    body.set('Type', 'Video');
+    body.set('action', 'ISBgetExclusive');
+    body.set('type', 'Video');
 
     let options = new RequestOptions({
       headers: new Headers({
@@ -95,11 +94,12 @@ export class ExclusivesPage {
       req.unsubscribe();
     });
     loading.present().then(()=>{
-    req = this.http.post('http://cums.the-v.net/site.aspx', body, options)
+    req = this.http.post(this.apiURL, body, options)
       .subscribe(response => {
-        this.freeVids = this.freeVids.concat(response.json().filter((v) => {
-          return v.videoPrivacy === 'public';
-        }));
+        // this.freeVids = this.freeVids.concat(response.json().filter((v) => {
+        //   return v.videoPrivacy === 'public';
+        // }));
+        this.freeVids=response.json();
         this.freeVids.map(vid=>{
           vid.id = vid.URL.substring(16,vid.URL.length);
           vid.image = vid.image.substring(78,vid.image.length);
@@ -121,21 +121,47 @@ export class ExclusivesPage {
   ///////VIDEOS FUNCTIONS-END//////////
   ////////GALLERY FUNCTIONS///////////
   loadGallery(){
-    this.gallery = [{
-      title:"VLC BURKINA FASO 2019",
-      imgs:[
-        { imgSrc:"1.jpeg" },
-        { imgSrc:"2.jpeg" },
-        { imgSrc:"3.jpeg" },
-        { imgSrc:"4.jpeg" },
-        { imgSrc:"5.jpeg" },
-        { imgSrc:"6.jpeg" },
-        { imgSrc:"7.jpeg" },
-        { imgSrc:"8.jpeg" },
-        { imgSrc:"9.jpeg" },
-        { imgSrc:"10.jpeg" }
-      ]
-    }]
+    let body = new URLSearchParams();
+    body.set('action', 'ISBgetExclusive');
+    body.set('type', 'Gallery');
+
+    let options = new RequestOptions({
+      headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    });
+    let req;
+    let loading = this.loadingCtrl.create({ enableBackdropDismiss: true });
+    loading.onDidDismiss(()=>{
+      req.unsubscribe();
+    });
+    loading.present().then(()=>{
+    req = this.http.post(this.apiURL, body, options)
+      .subscribe(response => {
+        this.gallery = response.json();
+        console.log(this.freeVids);
+      }, e => {
+        console.log(e);
+        loading.dismiss();
+      }, () => {
+        loading.dismiss();
+      });
+    });
+    // this.gallery = [{
+    //   title:"VLC BURKINA FASO 2019",
+    //   imgs:[
+    //     { imgSrc:"1.jpeg" },
+    //     { imgSrc:"2.jpeg" },
+    //     { imgSrc:"3.jpeg" },
+    //     { imgSrc:"4.jpeg" },
+    //     { imgSrc:"5.jpeg" },
+    //     { imgSrc:"6.jpeg" },
+    //     { imgSrc:"7.jpeg" },
+    //     { imgSrc:"8.jpeg" },
+    //     { imgSrc:"9.jpeg" },
+    //     { imgSrc:"10.jpeg" }
+    //   ]
+    // }]
   }
   imgPreview(images,index){
     console.log(images);

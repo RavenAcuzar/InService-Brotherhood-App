@@ -17,7 +17,8 @@
     <img src="./assets/imgs/page-header.jpg" style="height:22vh;" />
     <h1 class="header-title">ISB<br>MERCHANDISE</h1>
   </div>
-  <div style="margin-top:0; min-height:74vh;" padding [hidden]="merchHide">
+  <div style="margin-top:0; min-height:74vh;" padding>
+    <p style="text-align: center;">InService Brotherhood merchandise is only available during events.</p>
       <div class="merch-cont" padding  *ngFor="let merch of myMerchandise; let i = index;">
         <img [src]="merch.image"/>
         <div class="desc">
@@ -34,4 +35,5 @@
             </div>
         </div>
       </div>
+      
 </ion-content>

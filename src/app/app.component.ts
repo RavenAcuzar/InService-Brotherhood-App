@@ -16,10 +16,8 @@ import { SocialFeedPage } from '../pages/social-feed/social-feed';
 import { ProfilePage } from '../pages/profile/profile';
 import { MarkPage } from '../pages/mark/mark';
 import { MerchPage } from '../pages/merch/merch';
-import { SurveyPage } from '../pages/survey/survey';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { isSyntaxError } from '@angular/compiler';
 
 
 @Component({
@@ -113,7 +111,7 @@ pageState: boolean;
               { title: 'PROFILE', component: ProfilePage, icon: "md-person" },
               { title: 'ISB MARK', component: MarkPage, icon: "md-aperture" },
               { title: 'ISB MERCHANDISE', component: MerchPage, icon: "md-shirt" },
-              { title: 'SURVEY', component: SurveyPage, icon: "md-analytics" },
+              
               { title: 'ABOUT ISB', component: AboutPage, icon: "md-information-circle" },
               { title: 'CONTACT US', component: ContactPage, icon: "md-mail" }
             ];
@@ -127,7 +125,7 @@ pageState: boolean;
               { title: 'PROFILE', component: ProfilePage, icon: "md-person" },
               { title: 'ISB MARK', component: MarkPage, icon: "md-aperture" },
               { title: 'ISB MERCHANDISE', component: MerchPage, icon: "md-shirt" },
-              { title: 'SURVEY', component: SurveyPage, icon: "md-analytics" },
+              
               { title: 'ABOUT ISB', component: AboutPage, icon: "md-information-circle" },
               { title: 'CONTACT US', component: ContactPage, icon: "md-mail" }
             ];
@@ -143,7 +141,7 @@ pageState: boolean;
               { title: 'PROFILE', component: LoginPage, icon: "md-person" },
               { title: 'ISB MARK', component: LoginPage, icon: "md-aperture" },
               { title: 'ISB MERCHANDISE', component: MerchPage, icon: "md-shirt" },
-              { title: 'SURVEY', component: LoginPage, icon: "md-analytics" },
+              
               { title: 'ABOUT ISB', component: AboutPage, icon: "md-information-circle" },
               { title: 'CONTACT US', component: ContactPage, icon: "md-mail" }
         ];

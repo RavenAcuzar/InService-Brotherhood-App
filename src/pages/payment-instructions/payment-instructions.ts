@@ -76,7 +76,22 @@ export class PaymentInstructionsPage {
       //participant request state
       if (this.navParams.get('requestType') == 'Participate') {
         if (this.paymentStat == '00') {
-          this.participant = true;
+          this.svc.getEventImages(this.eventID).then(items => {
+            console.log(items);
+            if(items.participantMoUrl !=""){
+              this.paymentImages.push(items.participantMoUrl);
+            }
+            if(items.participantThingsUrl !=""){
+               this.paymentImages.push(items.participantThingsUrl);}
+  
+            if(items.mapUrl !=""){
+              this.paymentImages.push(items.mapUrl);
+            }
+            this.showSlides = true;
+          })
+          if (this.platform.is('cordova')) {
+            this.downloadLocation = this.file.cacheDirectory;
+          }
         }
         if (this.paymentStat == '22') {
           this.pending = true;
@@ -85,7 +100,7 @@ export class PaymentInstructionsPage {
         }
       }
       else {
-        this.participant = false;
+        this.showSlides = false;
       }
     }
 
@@ -100,6 +115,9 @@ export class PaymentInstructionsPage {
   ionViewDidEnter() {
     if ((this.navParams.get('requestType') == 'Serve' && (this.paymentStat == '00' || this.paymentStat == '22'))) {
       this.checkPermission();
+    }
+    else if(this.navParams.get('requestType') == 'Participate' && (this.paymentStat == '00')){
+      this.checkPermission(); 
     }
   }
 
