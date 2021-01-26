@@ -189,7 +189,7 @@ export class PersonalDetailsPage implements OnInit {
 		body5.set('action', 'ISBGetSelection');
 		body5.set('type', 'upline');
 		this.http.post( 'https://bt.the-v.net/service/api.aspx', body5, options).subscribe((resp) => {
-			console.log("done");
+			//console.log("done");
 			let i = [];
 			let c=0;
 			resp.json().forEach(e => {
@@ -275,7 +275,7 @@ export class PersonalDetailsPage implements OnInit {
 	}
 	checkIfIRDuplicate(){
 		this.http.get('https://bt.the-v.net/checkir.aspx?irid=' + this.irid).subscribe((res) => {
-			console.log(res.text());
+			//console.log(res.text());
 			try {
 				let x = res.json();
 				if (x.length > 0) {
@@ -330,11 +330,11 @@ export class PersonalDetailsPage implements OnInit {
 		
 	}
 	checkIrid() {
-		console.log('event Fired!');
+		//console.log('event Fired!');
 		//set to outer variable isIridValid;
 
 		this.http.get('https://bt.the-v.net/checkir.aspx?irid=' + this.irid).subscribe((res) => {
-			console.log(res.text());
+			//console.log(res.text());
 			try {
 				let x = res.json();
 				if (x.length > 0) {

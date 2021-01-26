@@ -8,6 +8,7 @@ import { PersonalDetailsPage } from '../personal-details/personal-details';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { SocialFeedPage } from '../social-feed/social-feed';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 /**
  * Generated class for the LoginPage page.
@@ -91,7 +92,7 @@ export class LoginPage {
     loading.present().then(() => {
       this.AppSvc.getUserDetails(this.irid).then(userDetails => {
         this.storage.set(USER_DATA_KEY, userDetails);
-        console.log(userDetails);
+        //console.log(userDetails);
         AppStateService.publishAppStateChange(this.events);
         loading.dismiss();
         this.goToHome(userDetails.isb_grad);
@@ -130,6 +131,11 @@ export class LoginPage {
     else{
       this.navCtrl.setRoot(HomePage);
     }
+  }
+  goToForgotPass(){
+    this.navCtrl.push(ForgotPasswordPage, {
+      fromLogin: true
+    })
   }
 
 

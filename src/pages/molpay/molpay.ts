@@ -64,11 +64,11 @@ export class MolpayPage {
     this.storage.get(USER_DATA_KEY).then(userdetails => {
       this.paymentDetails = {
         'mp_dev_mode': true,
-        'mp_username': 'api_SB_vglobal',
-        'mp_password': 'api_LG2802BaLv#',
-        'mp_merchant_ID': 'SB_vglobal',
-        'mp_app_name': 'vglobal',
-        'mp_verification_key': '861d91c19e7e027bcaad392b8343f53e',
+        'mp_username': '<USERNAME>',
+        'mp_password': '<PASSWORD>',
+        'mp_merchant_ID': '<MERCHANT-ID>',
+        'mp_app_name': '<name>',
+        'mp_verification_key': '<KEY>',
         'mp_amount': this.eventPrice, // Minimum 1.01
         'mp_order_ID': this.orderID,
         'mp_currency': 'MYR',
@@ -83,7 +83,7 @@ export class MolpayPage {
       molpay.startMolpay(this.paymentDetails, callback => {
         //document.getElementById('expinput').removeAttribute('readonly');
         let cl = JSON.parse(callback);
-        console.log(cl);
+        //console.log(cl);
         if (cl.Error) {
           this.showAlert({
             Title: "Error!",
@@ -94,11 +94,11 @@ export class MolpayPage {
           this.showResult(cl, userdetails.IRID);
         }
       })
-      //console.log(molpay);
+      ////console.log(molpay);
     })
     
     // this.molpayView.startMolpay(paymentDetails, (error, success)=>{
-    //   (error) ? console.error('Error!', error) : console.log('!Success', success);
+    //   (error) ? console.error('Error!', error) : //console.log('!Success', success);
     //   });
   }
   showResult(molpayMessage, irid) {
@@ -117,7 +117,7 @@ export class MolpayPage {
             txnID: molpayMessage.txn_ID
           }).then(resp => {
             loading.dismiss();
-            //console.log(resp);
+            ////console.log(resp);
             if (resp == 'True') {
               this.showAlert({
                 Title: 'Payment Success!',
@@ -147,7 +147,7 @@ export class MolpayPage {
             txnID: molpayMessage.txn_ID
           }).then(resp => {
             loading2.dismiss();
-            //console.log(resp);
+            ////console.log(resp);
             if (resp == 'True') {
               this.showAlert({
                 Title: 'Payment Failed!',

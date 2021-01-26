@@ -37,11 +37,11 @@ export class RecommendedPage {
       })
   }
   loadSelectionPage(value){
-    //console.log(value)
+    ////console.log(value)
     this.navCtrl.push(SelectionPage,{type:value});
   }
   checkForm(){
-    console.log("checked");
+    //console.log("checked");
       if(this.up!='' && this.v_pos!='')
         this.invalid = false;
       else

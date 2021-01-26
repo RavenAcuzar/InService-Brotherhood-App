@@ -61,7 +61,7 @@ pageState: boolean;
       this.storage.get(LOGGED_IN_KEY).then(loggedin => { //check if loggedin
         if (loggedin) {
           this.storage.get(USER_DATA_KEY).then(user => {//check current isb grad status
-            //console.log(user);
+            ////console.log(user);
             if (user.isb_grad != 'True') { //if false, verify, else do nothing
               this.AppSvc.getUserDetails(user.IRID).then(updateDetails => {//fetch user data
                 this.storage.set(USER_DATA_KEY, updateDetails);//save to storage
@@ -99,7 +99,7 @@ pageState: boolean;
     this.storage.get(LOGGED_IN_KEY).then(isLoggedIn => {
       if (isLoggedIn) {
         this.storage.get(USER_DATA_KEY).then(userDetails => {
-          console.log(userDetails.isb_grad);
+          //console.log(userDetails.isb_grad);
           this.name = userDetails.f_name +' '+userDetails.m_name+' '+userDetails.l_name;
           this.irid = userDetails.IRID;
           if (userDetails.isb_grad == 'True') {

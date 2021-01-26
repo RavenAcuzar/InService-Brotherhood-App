@@ -23,6 +23,8 @@
       <ion-item>
           <input [(ngModel)]="password" type="password" placeholder="Password"/>
         </ion-item>
+        <a (click)="goToForgotPass()" style="padding-bottom: 10px;">Forgot Password</a>
+        <br/>
         <a (click)="goToAppMain()">Create Account</a>
         <ion-item>
         <button ion-button color="dark" (click)="checkLogin()">LOGIN</button>

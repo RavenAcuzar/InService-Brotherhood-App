@@ -59,10 +59,10 @@ export class PostViewPage {
         let newRes = res.map(e => {
           return this.faveSvc.checkIfFave(e.Id, 'Feed').then(val => {
             e.fave = val;
-            console.log(val);
+            //console.log(val);
             return this.faveSvc.checkIfLike(e.Id, e.irid).then(liked => {
               e.isLiked = liked;
-              console.log(liked);
+              //console.log(liked);
               return e;
             })
           })
@@ -70,7 +70,7 @@ export class PostViewPage {
         Promise.all(newRes).then(val => {
           this.setValue(val[0]);
           //TODO: Map selected if favorite or not
-          console.log(val);
+          //console.log(val);
         })
         this.setValue(res[0]);
         let sp = res[0].name.indexOf(" ");
@@ -137,17 +137,17 @@ export class PostViewPage {
       this.feed.likes = l.toString();
       this.feed.isLiked = true;
       this.feedSvc.addToLike(id, irid, type).then(res => {
-        console.log(res);
+        //console.log(res);
       });
-      //console.log(this.feed);
+      ////console.log(this.feed);
     } else {
       let l = parseInt(this.feed.likes) - 1;
       this.feed.likes = l.toString();
       this.feed.isLiked = false;
       this.feedSvc.addToLike(id, irid, type).then(res => {
-        console.log(res);
+        //console.log(res);
       });
-      //console.log(this.feed);
+      ////console.log(this.feed);
     }
   }
   sendMessage() {

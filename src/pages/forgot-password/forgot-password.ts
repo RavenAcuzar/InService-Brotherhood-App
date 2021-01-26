@@ -24,8 +24,12 @@ export class ForgotPasswordPage {
   options;
   not_confirmed: boolean = true;
   submit_enabled = false;
+  fromLogin: boolean = false;
+  irid = '';
+  apiURL = 'https://bt.the-v.net/service/api.aspx';
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController,
     public storage: Storage, public http: Http, private alterCtrl: AlertController) {
+      this.fromLogin = this.navParams.get('fromLogin');
     this.options = new RequestOptions({
       headers: new Headers({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -33,7 +37,7 @@ export class ForgotPasswordPage {
     });
   }
   inputchange() {
-    console.log("text change!");
+    //console.log("text change!");
     if (this.not_confirmed) {
       if (this.c_pass == '') {
 
@@ -74,7 +78,7 @@ export class ForgotPasswordPage {
           body.set('action', 'ISBCheckLogin');
           body.set('irid', irid);
           body.set('password', this.c_pass);
-          req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
+          req = this.http.post(this.apiURL, body, this.options)
             .subscribe(res => {
               if (res.text() == "True") {
                 this.not_confirmed = false;
@@ -109,7 +113,7 @@ export class ForgotPasswordPage {
     }
     else {
 
-      console.log("Change password clicked!")
+      //console.log("Change password clicked!")
       //change password
       //redirect confirmation
       let req;
@@ -124,7 +128,7 @@ export class ForgotPasswordPage {
           body.set('irid', irid);
           body.set('password', this.c_pass);
           body.set('n_password', this.n_pass);
-          req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
+          req = this.http.post( this.apiURL, body, this.options)
             .subscribe(res => {
               if (res.text() == "True") {
                 //redirect to confirm
@@ -158,6 +162,45 @@ export class ForgotPasswordPage {
 
     }
 
+  }
+  sendEmail(){
+    if(this.irid!=''){
+      let loading = this.loadingCtrl.create({
+        spinner:'crescent'
+      });
+      loading.present();
+      let body = new URLSearchParams();
+      body.set('action', 'ISBForgotPasswordEmail');
+      body.set('irid', this.irid);
+      this.http.post(this.apiURL, body, this.options)
+      .subscribe(res=>{
+        loading.dismiss();
+          let r = res.json();
+          if(r[0].Data=='1'){
+            //good to go
+            this.navCtrl.pop();
+          } else {
+            //error message alert
+            let alert = this.alterCtrl.create({
+              title: 'Oops something went wrong!',
+              message: r[0].Data,
+              buttons: [{
+                text: 'Ok',
+                role: 'Cancel',
+                handler: () => {
+                  alert.dismiss();
+                  return false;
+                }
+              }]
+            });
+            alert.present();
+          }
+      }, error => {
+        loading.dismiss();
+      }, () => {
+        loading.dismiss();
+      });
+    }
   }
 
 

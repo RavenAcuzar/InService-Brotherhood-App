@@ -20,13 +20,10 @@ page-payment-instructions {
             position: fixed !important;
         }
     }
-    
     ion-slide{
-        align-items: baseline !important;
+        height: 100vh !important;
     }
-    ion-slide:last-child{
-        align-items: center !important;
-    }
+    
     .bg-isb{
         position: absolute;
         top: 0;

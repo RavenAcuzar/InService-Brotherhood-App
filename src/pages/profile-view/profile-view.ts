@@ -29,7 +29,7 @@ export class ProfileViewPage {
 
   ionViewDidLoad() {
     this.storage.get(USER_DATA_KEY).then(userDetail => {
-      console.log(userDetail);
+      //console.log(userDetail);
       this.profileDetails = userDetail;
       if (userDetail.gender == 'False')
         this.gender = "Male";

@@ -27,7 +27,7 @@ export class OnsitePaymentPage {
     //call api onsite request
     this.storage.get(USER_IRID_KEY).then(irid=>{
     this.appSvc.updateOnsitePayment(this.eventID, irid).then(resp=>{
-      console.log(resp);
+      //console.log(resp);
       if(resp == "True"){
         let alert = this.alertCtrl.create({
           title: "Onsite Payment Request Sent!",

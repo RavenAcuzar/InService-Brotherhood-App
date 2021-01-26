@@ -20,7 +20,7 @@ export class FallbackPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FallbackPage');
+    //console.log('ionViewDidLoad FallbackPage');
   }
   goToLogin(){
     this.navCtrl.push(LoginPage);

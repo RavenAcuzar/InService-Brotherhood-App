@@ -42,7 +42,7 @@ export class FeedService {
                 return false;
             }
         }).catch(e => {
-            console.log(e);
+            //console.log(e);
             return new Error;
         })
     }
@@ -59,7 +59,7 @@ export class FeedService {
         return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(20000))
             .map(response => {
-                console.log(response);
+                //console.log(response);
                 try {
                     return response.json();
                 }
@@ -79,7 +79,7 @@ export class FeedService {
         return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
             .pipe(timeout(20000))
             .map(response => {
-                console.log(response);
+                //console.log(response);
                 try {
                     return response.json();
                 }
@@ -150,7 +150,7 @@ export class FeedService {
             .map(response => {
                 try {
                     let id = response.json()[0];
-                    console.log(response.json()[0])
+                    //console.log(response.json()[0])
                     if (id.Id != "") {
                         if (imgs.length > 0) {
                             let d = imgs.map(e => {
@@ -161,14 +161,14 @@ export class FeedService {
                                 })
                             });
                             return Promise.all(d).then(res => {
-                                console.log(res)
+                                //console.log(res)
                                 let f=true;
                                 for (let i = 0; res.length - 1 > i; i++) {
                                     f = Boolean(f && res[i]);
                                 }
                                 if(f){
                                     return this.activatePost(id.Id).then(resp=>{
-                                        console.log(resp);
+                                        //console.log(resp);
                                         if(resp=='True')
                                         return true;
                                         else return false;
@@ -213,7 +213,7 @@ export class FeedService {
         }).then(() => {
             return true;
         }).catch(e => {
-            //console.log(e);
+            ////console.log(e);
             return false;
         })
     }
@@ -223,7 +223,7 @@ export class FeedService {
         }).then(() => {
             return true;
         }).catch(e => {
-            //console.log(e);
+            ////console.log(e);
             return false;
         })
     }
@@ -293,8 +293,8 @@ export class FeedService {
             files.file(success => {
                 this.setTypeValue(success.type);
                 this.filesName = success.name;
-                console.log(this.fileType)
-                console.log(this.filesName);
+                //console.log(this.fileType)
+                //console.log(this.filesName);
             });
             let options: FileUploadOptions = {
                 fileKey: 'UploadPhotoFeed',
@@ -309,7 +309,7 @@ export class FeedService {
             }
             this.fileTransfer = this.transfer.create();
             return this.fileTransfer.upload(imgSrc, uri, options).then(done=>{
-                console.log(done)
+                //console.log(done)
                 return true;
             }).catch(()=>{
                 return false;

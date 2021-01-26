@@ -21,13 +21,12 @@
       <h3 style="text-align: center;">CONFIRMED</h3>
 
       <h6 style="text-align: center;">ARE YOU READY & PREPARED TO TAKE ON THE CHALLENGE?</h6>
-      <p style="text-align: center; margin: 13vw 0;"><b>INSERVICE BROTHERHOOD<br>
-        HARDCORE BOOTCAMP XVIII<br>
-        ASIA CAMP,<br>
-        KUALA KUBU BARU, MALAYSIA<br>
-        20th – 25th JANUARY 2019</b></p>
+      <p style="text-align: center; margin: 13vw 0;"><b>
+        {{eventDetails.title}}<br>
+        {{eventDetails.eventVenue}},<br>
+        {{eventDetails.startDate2}}</b></p>
       <p style="text-indent: 2em; margin: 8vw 0;">Based on your Recommendation, Application and Passion, you are hereby CONFIRMED by
-        The Core InService to QUALIFY & PARTICIPATE in the <b>HARDCORE ISB BOOTCAMP XVIII.</b></p>
+        The Core InService to QUALIFY & {{requestType}} in the <b>{{eventDetails.title}}.</b></p>
       <p>Please select the payment method:</p>
       <button ion-button full color="button" (click)="goToMolPay()" >Proceed to Cedit Card Payment</button>
       <button ion-button full color="button" (click)="onSitePayment()" >Proceed to Onsite Payment</button>

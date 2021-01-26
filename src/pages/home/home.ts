@@ -62,7 +62,7 @@ export class HomePage {
         })
     })
     if (this.events.length <= 1) {
-      console.log(this.events);
+      //console.log(this.events);
       this.autoplayDelay = null;
       this.isloop = false;
     }
@@ -73,7 +73,7 @@ export class HomePage {
 
   }
   goToEvent(id) {
-    console.log(id);
+    //console.log(id);
     this.navCtrl.push(EventsViewPage, {
       id: id,
       past:false

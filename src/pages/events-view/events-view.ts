@@ -189,7 +189,8 @@ export class EventsViewPage {
       price: price,
       pStat: paymentStatus,
       requestType: reqtype,
-      title: this.title
+      title: this.title,
+      eventDetails: this.eventDetails
     });
   }
   submitRequest(eventID: string, reqType: string, eventName: string, eventDate: string, eventVenue: string) {
@@ -248,10 +249,10 @@ export class EventsViewPage {
             req = this.http.post('https://bt.the-v.net/service/api.aspx', body, this.options).subscribe(
               (res) => {
                 let resp = [res.json()];
-                //console.log(resp);
+                ////console.log(resp);
                 if (resp[0].length == 0) {
-                  //console.log(eventDate);
-                  //console.log(eventVenue);
+                  ////console.log(eventDate);
+                  ////console.log(eventVenue);
                   this.appSvc.submitUserRequest(
                     eventID,
                     user,

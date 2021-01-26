@@ -35,6 +35,8 @@ export class PaymentInstructionsPage {
   pending: boolean = false;
   downloadLocation: string = '';
   storageDirectory: any;
+  eventDetails = [];
+  requestType;
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
     private transfer: FileTransfer, private file: File, private svc: AppHTMLService, private base64ToGallery: Base64ToGallery,
     private loadingCtrl: LoadingController, private platform: Platform,
@@ -43,6 +45,8 @@ export class PaymentInstructionsPage {
     this.eventID = this.navParams.get('id');
     this.price = this.navParams.get('price');
     this.paymentStat = this.navParams.get('pStat');
+    this.eventDetails = this.navParams.get('eventDetails');
+    this.requestType = this.navParams.get('requestType');
     if (this.paymentStat == '11' || !this.paymentStat) {
       this.retype = true;
     }
@@ -53,7 +57,7 @@ export class PaymentInstructionsPage {
       //show slides for paid or onsite inservice requests
       if ((this.navParams.get('requestType') == 'Serve' && (this.paymentStat == '00' || this.paymentStat == '22'))) {
         this.svc.getEventImages(this.eventID).then(items => {
-          console.log(items);
+          //console.log(items);
           if(items.moUrl !=""){
             this.paymentImages.push(items.moUrl);
           }
@@ -65,19 +69,19 @@ export class PaymentInstructionsPage {
           }
           this.showSlides = true;
         })
-        if (this.platform.is('cordova')) {
-          this.downloadLocation = this.file.cacheDirectory;
-        }
+        // if (this.platform.is('cordova')) {
+        //   this.downloadLocation = this.file.cacheDirectory;
+        // }
 
       }
       else {
         this.showSlides = false;
       }
       //participant request state
-      if (this.navParams.get('requestType') == 'Participate') {
-        if (this.paymentStat == '00') {
+      if (this.navParams.get('requestType') == 'Participate' && ((this.paymentStat == '00') || (this.paymentStat == '22'))) {
+        
           this.svc.getEventImages(this.eventID).then(items => {
-            console.log(items);
+            //console.log(items);
             if(items.participantMoUrl !=""){
               this.paymentImages.push(items.participantMoUrl);
             }
@@ -89,15 +93,15 @@ export class PaymentInstructionsPage {
             }
             this.showSlides = true;
           })
-          if (this.platform.is('cordova')) {
-            this.downloadLocation = this.file.cacheDirectory;
-          }
-        }
-        if (this.paymentStat == '22') {
-          this.pending = true;
-        } else {
-          this.pending = false;
-        }
+          // if (this.platform.is('cordova')) {
+          //   this.downloadLocation = this.file.cacheDirectory;
+          // }
+        
+        // if (this.paymentStat == '22') {
+        //   this.pending = true;
+        // } else {
+        //   this.pending = false;
+        // }
       }
       else {
         this.showSlides = false;
@@ -116,7 +120,7 @@ export class PaymentInstructionsPage {
     if ((this.navParams.get('requestType') == 'Serve' && (this.paymentStat == '00' || this.paymentStat == '22'))) {
       this.checkPermission();
     }
-    else if(this.navParams.get('requestType') == 'Participate' && (this.paymentStat == '00')){
+    else if(this.navParams.get('requestType') == 'Participate' && (this.paymentStat == '00'|| this.paymentStat == '22')){
       this.checkPermission(); 
     }
   }
@@ -173,7 +177,7 @@ export class PaymentInstructionsPage {
             }
             return a.hasPermission;
           }).catch(e => {
-            console.log(JSON.stringify(e));
+            //console.log(JSON.stringify(e));
             let alert = this.alertCtrl.create({
               title: 'Permission not allowed',
               subTitle: 'You cannot access this app\'s feature without allowing the storage permission.',
@@ -217,47 +221,28 @@ export class PaymentInstructionsPage {
         enableBackdropDismiss: true
       });
       loadingPopup.present();
-      const fileTransferObject = this.transfer.create();
-      let imagePath = this.downloadLocation + 'isb_'+Date.now().toString()+'.png';
-      console.log(url);
-      fileTransferObject.download(url, imagePath, true).then((entry) => {
-        entry.file((file) => {
-          let image = new Image();
-          image.src = imagePath;
-          image.onload = () => {
-            let canvas = document.createElement('canvas');
-            let context = canvas.getContext('2d');
+      this.photoLibrary.saveImage(url,'ISBApp')
+      .then(()=>{
+        loadingPopup.dismiss();
+        //canvas.remove();
 
-            canvas.height = image.height;
-            canvas.width = image.width;
-
-            context.drawImage(image, 0, 0, image.width, image.height);
-            this.base64ToGallery.base64ToGallery(canvas.toDataURL(), { prefix: '_img', mediaScanner:true  }).then(libraryItem => {
-              loadingPopup.dismiss();
-              //canvas.remove();
-
-              let alert = this.alertCtrl.create({
-                title: 'Download successful!',
-                subTitle: 'The image has now been downloaded to your photo library.',
-                buttons: [{
-                  text: 'Ok',
-                  handler: () => {
-                    alert.dismiss();
-                    return false;
-                  }
-                }],
-                cssClass: 'alert'
-              });
-              alert.present();
-            }).catch(e => {
-              loadingPopup.dismiss();
-              console.log(e);
-              this.onErrorWithWallpaperDownload(e);
-            });
-          };
-          image.onerror = (error) => {
-            console.log(error);
-            loadingPopup.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'Download successful!',
+          subTitle: 'The image has now been downloaded to your photo library.',
+          buttons: [{
+            text: 'Ok',
+            handler: () => {
+              alert.dismiss();
+              return false;
+            }
+          }],
+          cssClass: 'alert'
+        });
+        alert.present();
+      })
+      .catch((e)=>{
+        //console.log(e);
+        loadingPopup.dismiss();
             let alert = this.alertCtrl.create({
               title: 'Cannot download!',
               subTitle: 'Something went wrong.',
@@ -271,28 +256,71 @@ export class PaymentInstructionsPage {
               cssClass: 'alertDanger'
             });
             alert.present();
-          };
+      })
+      //const fileTransferObject = this.transfer.create();
+      //let imagePath = this.downloadLocation + 'isb_'+Date.now().toString()+'.png';
+      // //console.log(url);
+      // // this.file.readAsDataURL
+      // // fileTransferObject.download(url, imagePath, true).then((entry) => {
+      // //    entry.file((file) => {
+      //     let image = new Image();
           
-        }, e => {
-          loadingPopup.dismiss();
-          this.onErrorWithWallpaperDownload(e);
-        });
-      }).catch((error) => {
-        loadingPopup.dismiss();
-        let alert = this.alertCtrl.create({
-          title: 'Error occurred!',
-          subTitle: 'The image was not downloaded successfully. Please try again.',
-          buttons: [{
-            text: 'Ok',
-            handler: () => {
-              alert.dismiss();
-              return false;
-            }
-          }],
-          cssClass: 'alertDanger'
-        });
-        alert.present();
-      });
+      //     image.crossOrigin = "use-credentials";
+      //     image.onload = () => {
+      //       let canvas = document.createElement('canvas');
+      //       let context = canvas.getContext('2d');
+
+      //       canvas.height = image.height;
+      //       canvas.width = image.width;
+
+      //       context.drawImage(image, 0, 0, image.width, image.height);
+      //       this.base64ToGallery.base64ToGallery(canvas.toDataURL(), { prefix: '_img', mediaScanner:true  }).then(libraryItem => {
+              
+      //       }).catch(e => {
+      //         loadingPopup.dismiss();
+      //         //console.log(e);
+      //         this.onErrorWithWallpaperDownload(e);
+      //       });
+      //     };
+      //     image.onerror = (error) => {
+      //       //console.log(error);
+      //       loadingPopup.dismiss();
+      //       let alert = this.alertCtrl.create({
+      //         title: 'Cannot download!',
+      //         subTitle: 'Something went wrong.',
+      //         buttons: [{
+      //           text: 'Ok',
+      //           handler: () => {
+      //             alert.dismiss();
+      //             return false;
+      //           }
+      //         }],
+      //         cssClass: 'alertDanger'
+      //       });
+      //       alert.present();
+      //     };
+      //     image.src = url;
+          
+        // }, e => {
+        //   loadingPopup.dismiss();
+        //   this.onErrorWithWallpaperDownload(e);
+        // });
+      // }).catch((error) => {
+      //   loadingPopup.dismiss();
+      //   let alert = this.alertCtrl.create({
+      //     title: 'Error occurred!',
+      //     subTitle: 'The image was not downloaded successfully. Please try again.',
+      //     buttons: [{
+      //       text: 'Ok',
+      //       handler: () => {
+      //         alert.dismiss();
+      //         return false;
+      //       }
+      //     }],
+      //     cssClass: 'alertDanger'
+      //   });
+      //   alert.present();
+      // });
   }
 
   saveImage() {

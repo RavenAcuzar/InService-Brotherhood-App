@@ -71,8 +71,8 @@ export class MarkPage {
 
     this.camera.getPicture(loadPhoto).then(selectedImagePath => {
         this.crop.crop(selectedImagePath).then(croppedImagePath => {
-          console.log(croppedImagePath);
-          console.log(this.win.Ionic.WebView.convertFileSrc(croppedImagePath));
+          //console.log(croppedImagePath);
+          //console.log(this.win.Ionic.WebView.convertFileSrc(croppedImagePath));
           let canvas = <HTMLCanvasElement>this.editorRef.nativeElement;
           let context = canvas.getContext('2d');
   
@@ -116,7 +116,7 @@ export class MarkPage {
             }
             
           }
-          console.log(normalizeURL(croppedImagePath));
+          //console.log(normalizeURL(croppedImagePath));
           this.croppedImagePath = this.win.Ionic.WebView.convertFileSrc(normalizeURL(croppedImagePath));
           this.isImageSelected = true;
   
@@ -261,9 +261,9 @@ export class MarkPage {
       else
         filepath = prefix + libraryItem;
 
-    console.log("Filepath from Share: "+filepath);
+    //console.log("Filepath from Share: "+filepath);
     this.socialSharing.share('#InServiceBrotherhood', '', filepath).then((a) => {
-      console.log(JSON.stringify(a));
+      //console.log(JSON.stringify(a));
       if (a) {
         loading.dismiss();
         let alert = this.alert.create({
@@ -279,7 +279,7 @@ export class MarkPage {
       }
       else{loading.dismiss();}
     }).catch(e => {
-      console.log(JSON.stringify(e));
+      //console.log(JSON.stringify(e));
       loading.dismiss();
     });
   }

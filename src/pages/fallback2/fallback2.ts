@@ -19,7 +19,7 @@ export class Fallback2Page {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Fallback2Page');
+    //console.log('ionViewDidLoad Fallback2Page');
   }
 
 }

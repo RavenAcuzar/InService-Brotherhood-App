@@ -25,26 +25,26 @@ export class SelectionPage {
   }
   ionViewDidEnter(){
     this.title = this.navParams.get('type');
-    console.log(this.title);
+    //console.log(this.title);
     if(this.title == 'COUNTRY'){
       this.storage.get(COUNTRIES).then(ev=>{
-        console.log(ev);
+        //console.log(ev);
        this.items = ev;
       });
     } else if(this.title == 'VLC EVENTS'){
       this.storage.get(VLCEVENTS).then(ev=>{
-        console.log(ev);
+        //console.log(ev);
        this.items = ev;
       });
     } else if(this.title == 'THE V EVENTS'){
       this.storage.get(VEVENTS).then(ev=>{
-        console.log(ev);
+        //console.log(ev);
         this.items = ev;
       });
     } else if(this.title == 'UPLINES'){
-      console.log("correct!")
+      //console.log("correct!")
       this.storage.get(UPLINES).then(ev=>{
-        console.log(ev);
+        //console.log(ev);
         this.items = ev;
       });
     }

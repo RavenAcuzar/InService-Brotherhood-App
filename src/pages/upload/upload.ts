@@ -53,31 +53,31 @@ export class UploadPage {
       mediaType: this.camera.MediaType.PICTURE
     }
     this.camera.getPicture(options).then(ii => {
-      //console.log(ii);
+      ////console.log(ii);
       if (this.platform.is('android')) {
         this.filePath.resolveNativePath(ii).then(newUrl => {
           this.passURL = newUrl;
           this.hasPass = true;
-          console.log(this.passURL);
+          //console.log(this.passURL);
         });
       }
       else {
         this.file.resolveLocalFilesystemUrl(ii).then(url => {
           this.passURL = url.nativeURL;
           this.hasPass = true;
-          console.log(url.nativeURL);
+          //console.log(url.nativeURL);
         });
       }
     })
   }
   sanitizeUrl(url) {
-    //console.log(url);
+    ////console.log(url);
     if (this.platform.is('ios')) {
-      console.log(normalizeURL(url));
+      //console.log(normalizeURL(url));
       return this.sanitizer.bypassSecurityTrustUrl(normalizeURL(url));
     }
     else if (this.platform.is('android')) {
-        //console.log(normalizeURL(url)); 
+        ////console.log(normalizeURL(url)); 
         return this.win.Ionic.WebView.convertFileSrc(normalizeURL(url));
     }
     else {
@@ -96,14 +96,14 @@ export class UploadPage {
         this.filePath.resolveNativePath(ii).then(newUrl => {
           this.imgURL = newUrl;
           this.hasImg = true;
-          console.log(this.imgURL);
+          //console.log(this.imgURL);
         });
       }
       else {
       this.file.resolveLocalFilesystemUrl(ii).then(url => {
         this.imgURL = url.nativeURL;
         this.hasImg = true;
-        console.log(this.imgURL);
+        //console.log(this.imgURL);
       })
     }
     })

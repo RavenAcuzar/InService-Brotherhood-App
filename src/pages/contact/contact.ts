@@ -19,7 +19,7 @@ export class ContactPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
+    //console.log('ionViewDidLoad ContactPage');
   }
 
 }

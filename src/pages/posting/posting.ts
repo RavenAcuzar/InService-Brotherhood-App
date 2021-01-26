@@ -42,20 +42,20 @@ details = { name: "", irid: "", email: "" };
         mediaType: this.camera.MediaType.PICTURE
       }
       this.camera.getPicture(options).then(ii => {
-        console.log(ii);
+        //console.log(ii);
         if (this.platform.is('android')) {
           this.filePath.resolveNativePath('file://'+ii).then(newUrl => {
-            console.log(newUrl);
+            //console.log(newUrl);
             this.selectedImgs.push({ imgSrc: newUrl });
             
           }).catch(e=>{
-            console.log(e);
+            //console.log(e);
           });
         }
         else {
           this.file.resolveLocalFilesystemUrl(ii).then(url => {
             this.selectedImgs.push({ imgSrc: url.nativeURL });
-            console.log(url.nativeURL);
+            //console.log(url.nativeURL);
           });
         }
       })
@@ -66,7 +66,7 @@ details = { name: "", irid: "", email: "" };
     let loadingPopup = this.loadingCtrl.create();
     loadingPopup.present();
     this.feedSvc.postFeed(this.details,this.message,this.selectedImgs).then(res=>{
-      console.log(res);
+      //console.log(res);
       if(res){
         this.navCtrl.setRoot(SocialFeedPage);
         loadingPopup.dismiss();
@@ -79,13 +79,13 @@ details = { name: "", irid: "", email: "" };
   }
   }
   sanitizeUrl(url) {
-    //console.log(url);
+    ////console.log(url);
     if (this.platform.is('ios')) {
-      console.log(normalizeURL(url));
+      //console.log(normalizeURL(url));
       return this.sanitizer.bypassSecurityTrustUrl(normalizeURL(url));
     }
     else if (this.platform.is('android')) {
-      //console.log(normalizeURL(url)); 
+      ////console.log(normalizeURL(url)); 
       return this.sanitizer.bypassSecurityTrustUrl(url);
     }
     else {

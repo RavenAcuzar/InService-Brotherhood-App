@@ -45,7 +45,7 @@ export class ProfilePage {
       })
     });
     this.storage.get(USER_DATA_KEY).then(userDetails => {
-      console.log(userDetails.isb_grad);
+      //console.log(userDetails.isb_grad);
       this.name = userDetails.f_name + ' ' + userDetails.m_name + ' ' + userDetails.l_name;
       this.irid = userDetails.IRID;
       this.email = userDetails.email;
@@ -70,17 +70,17 @@ export class ProfilePage {
   }
   public loadPersonalFeed(page, loadingPopup?) {
     var d = new Date().toLocaleString("en-US");//load date value from initial load to prvent overlap with paging
-    console.log(d + this.irid + this.email);
+    //console.log(d + this.irid + this.email);
     return this.feedSvc.loadPersonalFeed(this.irid, this.email, d, page).then(feedArry => {
-      console.log(feedArry);
+      //console.log(feedArry);
       if (feedArry.length > 0) {
         let proms = feedArry.map(e => {
           return this.faveSvc.checkIfFave(e.Id, 'Feed').then(val => {
             e.fave = val;
-            console.log(val);
+            //console.log(val);
             return this.faveSvc.checkIfLike(e.Id, e.irid).then(liked => {
               e.isLiked = liked;
-              console.log(liked);
+              //console.log(liked);
               return e;
             })
           })
@@ -89,7 +89,7 @@ export class ProfilePage {
           this.setValue(val);
           //TODO: Map selected if favorite or not
           loadingPopup.dismiss();
-          //console.log(val);
+          ////console.log(val);
         })
       }
       else{
@@ -130,7 +130,7 @@ export class ProfilePage {
         body.set('irid', irid);
         req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
           .subscribe(resp => {
-            console.log(resp.json())
+            //console.log(resp.json())
             this.exp = resp.json();
             if (this.exp.length > 0)
               this.hasExp = true;
@@ -162,7 +162,7 @@ export class ProfilePage {
       loading.present().then(() => {
         req = this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
           .subscribe(resp => {
-            console.log(resp.json());
+            //console.log(resp.json());
             this.reqs = resp.json();
             if (this.reqs.length > 0)
               this.hesReq = true;
@@ -184,7 +184,7 @@ export class ProfilePage {
   }
   removeFavorite(item) {
     this.faveSvc.removeFavorite(item, 'Merch').then(rem => {
-      console.log(rem);
+      //console.log(rem);
       //reload view
       if (rem) {
         this.storage.get(MERCH_FAVES).then(m => { this.merchFaves = m });

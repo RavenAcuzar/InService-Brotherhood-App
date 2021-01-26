@@ -82,18 +82,18 @@ export class AppHTMLService {
         loading.onDidDismiss(() => {
             req.unsubscribe();
         });
-        //console.log(body);
+        ////console.log(body);
         loading.present().then(() => {
             req = this.http.post(AppHTMLService.API_URL, body, this.options)
                 .subscribe(res => {
-                    // console.log(res);
+                    // //console.log(res);
                     if (res.text() == "True") {
                         let body2 = new URLSearchParams();
                         body2.set('action', 'ISBSendEmailRequest');
                         body2.set('irid', irid);
                         body2.set('email', userEmail);
                         this.http.post(AppHTMLService.API_URL, body2, this.options).subscribe(res => {
-                            console.log(res.text());
+                            //console.log(res.text());
                         })
                         let youralert = this.alertCtrl.create({
                             title: "Request Submitted!",
@@ -136,7 +136,7 @@ export class AppHTMLService {
 
 
     submitApplicationForm(formData: ApplicationDetails, expData: any, redirect: any) {
-        console.log(formData);
+        //console.log(formData);
         let body = new URLSearchParams();
         body.set('action', 'ISBSubmitApplication');
         body.set('IRID', formData.irid);
@@ -172,14 +172,14 @@ export class AppHTMLService {
                         let loading2 = this.loadingCtrl.create({ content: "Uploading Passport" });
                         this.uploadImages('UploadPassport', 'Passport.jpg', formData.passportSrc, formData.irid, loading2)
                             .then(r => {
-                                console.log(r);
+                                //console.log(r);
                                 loading2.dismiss();
                                 let loading3 = this.loadingCtrl.create({ content: "Uploading Passport" });
                                 loading2.data.content = "Uploading Photo: 0%";
                                 this.uploadImages('UploadPhoto', 'Photo.jpg', formData.passImgSrc, formData.irid, loading3)
                                     .then(r => {
-                                        console.log(r);
-                                        console.log(expData.length);
+                                        //console.log(r);
+                                        //console.log(expData.length);
                                         loading3.dismiss();
                                         if (expData.length > 0)
                                             this.submitUserExperience(expData, formData.irid);
@@ -203,18 +203,18 @@ export class AppHTMLService {
                                     },
                                         error => {
                                             loading3.dismiss();
-                                            console.log("Error!! ", error);
+                                            //console.log("Error!! ", error);
                                         })
                                     .catch(() => {
-                                        console.log("ERROR UPLOADING IMAGES!")
+                                        //console.log("ERROR UPLOADING IMAGES!")
                                     })
                             },
                                 error => {
                                     loading2.dismiss();
-                                    console.log("Error!! ", error);
+                                    //console.log("Error!! ", error);
                                 })
                             .catch(() => {
-                                console.log("ERROR UPLOADING IMAGES!")
+                                //console.log("ERROR UPLOADING IMAGES!")
                             })
                     }
                     else {
@@ -269,17 +269,17 @@ export class AppHTMLService {
                 loader.setContent("Uploading " + fileName + ": " + (Math.round((e.loaded / e.total) * 100)) + "%");
             })
             //loader.data.content = "Uploading "+ fileName +": " + (Math.round((e.loaded / e.total) * 100))+"%";
-            //console.log("Uploaded " + e.loaded.toString() + " of " + e.total.toString());
+            ////console.log("Uploaded " + e.loaded.toString() + " of " + e.total.toString());
         });
 
         return this.fileTransfer.upload(imagSource, uri, options);
         // .then(r => {
-        //     console.log(r);
+        //     //console.log(r);
         // }, error => {
-        //     console.log("ERROR UPLOADING IMAGES! " + error);
+        //     //console.log("ERROR UPLOADING IMAGES! " + error);
         // })
         // .catch(() => {
-        //     console.log("ERROR UPLOADING IMAGES!")
+        //     //console.log("ERROR UPLOADING IMAGES!")
         // })
     }
     private submitUserExperience(userExpData: any, irid: string) {
@@ -358,7 +358,7 @@ export class AppHTMLService {
         body.set('orderID', pD.orderID);
         body.set('channel', pD.channel);
         body.set('txnID', pD.txnID);
-        console.log(body);
+        //console.log(body);
         return this.http.post(AppHTMLService.API_URL, body, this.options)
             .map(resp => {
                 return resp.text();
@@ -369,10 +369,10 @@ export class AppHTMLService {
         body.set('action', 'ISBOnsitePaymentRequest');
         body.set('eventID', eventID);
         body.set('irid', irid);
-        console.log(body);
+        //console.log(body);
         return this.http.post(AppHTMLService.API_URL, body, this.options)
             .map(resp => {
-                console.log(resp);
+                //console.log(resp);
                 return resp.text();
             }).toPromise();
     }

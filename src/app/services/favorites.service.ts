@@ -37,7 +37,7 @@ export class FavoritesService {
                     return false;
                 }
             }).catch(e=>{
-                console.log(e);
+                //console.log(e);
                 return new Error;
             })
         
@@ -52,7 +52,7 @@ export class FavoritesService {
                 return false;
             }
         }).catch(e=>{
-            console.log(e);
+            //console.log(e);
             return new Error;
         })
     }
@@ -71,9 +71,9 @@ export class FavoritesService {
                 for (let i = 0; i < a.rows.length; i++) {
                     let rawid = a.rows.item(i).faveItemID;
                     ids.push(rawid);
-                    console.log(a.rows.item(i));
+                    //console.log(a.rows.item(i));
                 }
-                console.log(ids.toString());
+                //console.log(ids.toString());
                 let body = new URLSearchParams();
                 body.set('action', 'getFavorites');
                 body.set('itemType', itemType);
@@ -81,7 +81,7 @@ export class FavoritesService {
                 return this.http.post( 'https://bt.the-v.net/service/api.aspx', body, this.options)
                 .pipe(timeout(20000))
                 .map(response=>{
-                    console.log(response.json());
+                    //console.log(response.json());
                     try{
                         return response.json();
                     }catch (e) {
@@ -111,7 +111,7 @@ export class FavoritesService {
             }).then(() => {
                 return true;
             }).catch(e=>{
-                console.log(e);
+                //console.log(e);
                 return false;
             })
         }
@@ -122,7 +122,7 @@ export class FavoritesService {
             }).then(() => {
                 return true;
             }).catch(e=>{
-                console.log(e);
+                //console.log(e);
                 return false;
             })
     }
@@ -132,7 +132,7 @@ export class FavoritesService {
         }).then(() => {
             return true;
         }).catch(e=>{
-            console.log(e);
+            //console.log(e);
             return false;
         })
     }
@@ -198,11 +198,11 @@ export class FavoritesService {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     postId TEXT NOT NULL,
                     irid TEXT NOT NULL)`, [])
-                    .then(() => { console.log(db); resolve(db); })
-                    .catch(e => { console.log(e); reject(e); })
+                    .then(() => { //console.log(db); resolve(db); })
+                    .catch(e => { //console.log(e); reject(e); })
             }
             catch (e) {
-                console.log(e);
+                //console.log(e);
                 reject(e);
             }
         })

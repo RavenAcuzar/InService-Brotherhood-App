@@ -39,7 +39,7 @@ export class NewsLandingPage {
       req = this.http.post( 'https://cums.the-v.net/site.aspx', body, options)
         .subscribe(resp => {
           this.hasLoaded = true;
-          console.log(resp.json()[0])
+          //console.log(resp.json()[0])
           this.news = resp.json()[0];
         }, error => {
           loading.dismiss();
@@ -50,7 +50,7 @@ export class NewsLandingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewsLandingPage');
+    //console.log('ionViewDidLoad NewsLandingPage');
   }
 
 }

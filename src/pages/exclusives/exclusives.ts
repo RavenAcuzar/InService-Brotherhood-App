@@ -52,7 +52,7 @@ export class ExclusivesPage {
     loading.present().then(() => {
       req = this.http.post(this.apiURL, body, options)
         .subscribe(resp => {
-          console.log(resp.json())
+          //console.log(resp.json())
           this.news = resp.json();
           this.news.map(data => {
             return data.newsUrl = data.URL.substring(9);
@@ -104,9 +104,9 @@ export class ExclusivesPage {
           vid.id = vid.URL.substring(16,vid.URL.length);
           vid.image = vid.image.substring(78,vid.image.length);
         }); 
-        console.log(this.freeVids);
+        //console.log(this.freeVids);
       }, e => {
-        console.log(e);
+        //console.log(e);
         loading.dismiss();
       }, () => {
         loading.dismiss();
@@ -139,9 +139,9 @@ export class ExclusivesPage {
     req = this.http.post(this.apiURL, body, options)
       .subscribe(response => {
         this.gallery = response.json();
-        console.log(this.freeVids);
+        //console.log(this.freeVids);
       }, e => {
-        console.log(e);
+        //console.log(e);
         loading.dismiss();
       }, () => {
         loading.dismiss();
@@ -164,8 +164,8 @@ export class ExclusivesPage {
     // }]
   }
   imgPreview(images,index){
-    console.log(images);
-    console.log(index);
+    //console.log(images);
+    //console.log(index);
     this.navCtrl.push(ImageViewerPage,{
       images:images,
       index:index

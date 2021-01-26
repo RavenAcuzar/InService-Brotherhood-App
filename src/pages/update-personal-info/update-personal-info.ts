@@ -36,7 +36,7 @@ export class UpdatePersonalInfoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage:Storage,
     private appSvc:AppHTMLService, private loadingCtrl:LoadingController, private alertCtrl:AlertController) {
     this.storage.get(USER_DATA_KEY).then(details => {
-      console.log(details);
+      //console.log(details);
       if (details != null) {
         this.id=details.id;
         this.irid = details.IRID.replace(/\s/g, '');
@@ -58,7 +58,7 @@ export class UpdatePersonalInfoPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UpdatePersonalInfoPage');
+    //console.log('ionViewDidLoad UpdatePersonalInfoPage');
   }
   ngOnInit() {
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;

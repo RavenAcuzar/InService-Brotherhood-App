@@ -57,7 +57,7 @@ export class MerchPage {
               e.fave = this.favCtrl.containsObject(e,merch);
               return e;
            })
-           //console.log(val);
+           ////console.log(val);
             //TODO: Map fave if true/false
             this.setValue(val);
           })
@@ -107,7 +107,7 @@ export class MerchPage {
   addToFaves(item, index) {
     this.favCtrl.addFavorite(item, 'Merch').then(added => {
       if (added) {
-        //console.log(this.myMerchandise[index])
+        ////console.log(this.myMerchandise[index])
         this.myMerchandise[index].fave = added;
         //this.cd.markForCheck();
       }

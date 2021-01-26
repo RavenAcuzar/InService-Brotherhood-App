@@ -74,16 +74,16 @@ export class SocialFeedPage {
   }
   public loadFeed(page, loadingPopup?) {
       return this.feedSvc.loadFeed(page).then(feedArry => {
-        console.log(feedArry);
+        //console.log(feedArry);
         if (feedArry.length > 0) {
           this.setEnd(feedArry[feedArry.length-1].RunningNum);
           let proms = feedArry.map(e => {
             return this.faveSvc.checkIfFave(e.Id, 'Feed').then(val => {
               e.fave = val;
-              console.log(val);
+              //console.log(val);
               return this.faveSvc.checkIfLike(e.Id, e.irid).then(liked => {
                 e.isLiked = liked;
-                console.log(liked);
+                //console.log(liked);
                 return e;
               })
             })
@@ -92,7 +92,7 @@ export class SocialFeedPage {
             this.setValue(val);
             //TODO: Map selected if favorite or not
             loadingPopup.dismiss();
-            //console.log(val);
+            ////console.log(val);
           })
         }
         else {
@@ -159,7 +159,7 @@ export class SocialFeedPage {
   //             this.details.irid = data.irid;
   //             this.details.email = data.email;
   //             this.details.name = data.name;
-  //             console.log(this.details);
+  //             //console.log(this.details);
   //             this.storage.set(ASK_DATO_DETAILS, this.details);
   //             this.hasProfile = true;
   //           }
@@ -183,7 +183,7 @@ export class SocialFeedPage {
   // }
   checkInfo() {
     this.storage.get(USER_DATA_KEY).then(details => {
-      console.log(details);
+      //console.log(details);
       if (!details) {
         this.hasProfile = false;
       }
@@ -194,7 +194,7 @@ export class SocialFeedPage {
         this.details.email = details.email;
       }
     })
-    console.log(this.details);
+    //console.log(this.details);
   }
   goToPosting() {
     if (this.hasProfile) {
@@ -236,15 +236,15 @@ export class SocialFeedPage {
       this.feeds[index].likes = l.toString();
       this.feeds[index].isLiked = true;
       this.feedSvc.addToLike(id, irid, type).then(res => {
-        console.log(res);
+        //console.log(res);
       });
-      //console.log(this.feeds[index]);
+      ////console.log(this.feeds[index]);
     } else {
       let l = parseInt(this.feeds[index].likes) - 1;
       this.feeds[index].likes = l.toString();
       this.feeds[index].isLiked = false;
       this.feedSvc.addToLike(id, irid, type).then(res => {
-        console.log(res);
+        //console.log(res);
       });
     }
 

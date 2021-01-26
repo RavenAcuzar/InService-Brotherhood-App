@@ -55,7 +55,7 @@ export class ConfirmationPage {
         params.set('email',email);
         this.http.post( 'https://bt.the-v.net/service/api.aspx', params,this.options)
         .subscribe(respon=>{
-          console.log(respon.text());
+          //console.log(respon.text());
           if(respon.text()!='Email Sent!')
           {
             let youralert = this.alertCtrl.create({

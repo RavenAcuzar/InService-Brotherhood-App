@@ -22,7 +22,7 @@ export class AboutPage {
 
   ionViewDidLoad() {
     this.storage.get(USER_DATA_KEY).then(userDetails => {
-      console.log(userDetails.isb_grad);
+      //console.log(userDetails.isb_grad);
       if (userDetails.isb_grad == 'True') {
         this.hideThis=false;
       }

@@ -83,11 +83,11 @@ export class ExperiencePage {
         }
       }).then(()=>{
         this.storage.get(LANGUAGES).then(lang=>{
-          console.log(lang);
+          //console.log(lang);
           this.languages = lang;
         }).then(()=>{
           this.storage.get(GROUPS).then(g=>{
-            console.log(g);
+            //console.log(g);
             this.uplines = g;
           })
         })
@@ -95,7 +95,7 @@ export class ExperiencePage {
   }
   checkIfOthers(type){
     if(type==='lang'){
-      console.log(this.language.indexOf('Others'));
+      //console.log(this.language.indexOf('Others'));
       if(this.language.indexOf('Others') >= 0){
         this.langOthers = true;
       }
