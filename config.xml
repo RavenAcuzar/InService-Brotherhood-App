@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="net.thev.isb189315" version="2.1.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="net.thev.isb189315" version="2.1.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>V Inservice</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -136,5 +136,5 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="This app requires photo library access to function properly." />
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^3.4.0" />
-    <plugin name="molpay-mobile-xdk-cordova" spec="^3.27.1" />
+    <plugin name="molpay-mobile-xdk-cordova" spec="^3.29.1" />
 </widget>

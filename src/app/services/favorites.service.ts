@@ -198,8 +198,8 @@ export class FavoritesService {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     postId TEXT NOT NULL,
                     irid TEXT NOT NULL)`, [])
-                    .then(() => { //console.log(db); resolve(db); })
-                    .catch(e => { //console.log(e); reject(e); })
+                    .then(() => { console.log(db); resolve(db); })
+                    .catch(e => { console.log(e); reject(e); })
             }
             catch (e) {
                 //console.log(e);

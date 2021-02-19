@@ -64,11 +64,11 @@ export class MolpayPage {
     this.storage.get(USER_DATA_KEY).then(userdetails => {
       this.paymentDetails = {
         'mp_dev_mode': true,
-        'mp_username': '<USERNAME>',
-        'mp_password': '<PASSWORD>',
-        'mp_merchant_ID': '<MERCHANT-ID>',
-        'mp_app_name': '<name>',
-        'mp_verification_key': '<KEY>',
+        'mp_username': 'api_SB_vglobal',
+        'mp_password': 'api_LG2802BaLv#',
+        'mp_merchant_ID': 'SB_vglobal',
+        'mp_app_name': 'vglobal',
+        'mp_verification_key': '861d91c19e7e027bcaad392b8343f53e',
         'mp_amount': this.eventPrice, // Minimum 1.01
         'mp_order_ID': this.orderID,
         'mp_currency': 'MYR',
