@@ -30,7 +30,7 @@
       <h4>EVENTS</h4>
       <div *ngIf="eventsData?.length > 0">
       <div *ngFor="let event of eventsData" >
-        <ion-card (click)="goToEventView(event.id, False)">
+        <ion-card (click)="goToEventView(event.id)">
             <img [src]="event.thumbnail"/>
             <div class="event-content">
               <h6>{{event.title}}</h6>
@@ -48,7 +48,7 @@
       <h4>PAST EVENTS</h4>
       <div *ngIf="eventsData2?.length > 0">
       <div *ngFor="let event of eventsData2" >
-        <ion-card (click)="goToEventView(event.id, True)">
+        <ion-card (click)="goToEventView(event.id, 'yes')">
             <img [src]="event.thumbnail"/>
             <div class="event-content">
               <h6>{{event.title}}</h6>

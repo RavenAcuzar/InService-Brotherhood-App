@@ -42,6 +42,7 @@ export class EventsViewPage {
   ) {
     this.eventURL = this.navParams.get('id');
     this.fromPast = this.navParams.get('past');
+    console.log(this.fromPast)
     this.options = new RequestOptions({
       headers: new Headers({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -84,7 +85,7 @@ export class EventsViewPage {
           this.showalert = true;
           this.storage.get(LOGGED_IN_KEY).then((isLogged) => {
             this.storage.get(USER_DATA_KEY).then((userdetails) => {
-              if (isLogged) {
+              if (isLogged && !this.fromPast) {
                 this.setEmail(userdetails.email);
                 this.subs = this.appSvc
                   .getRequest(this.eventURL, userdetails.IRID)
@@ -204,16 +205,17 @@ export class EventsViewPage {
         - Phone number
     */
     this.storage.get(USER_DATA_KEY).then((data) => {
+      //console.log(data);
       if (
         data.city_address == '' ||
         data.country_address == '' ||
         data.gender == '' ||
-        data.h_address == '' ||
+        // data.h_address == '' ||
         data.mobile_no == '' ||
-        data.state_address == '' ||
-        data.birth == '' ||
-        data.zip_code == '' ||
-        data.tel_no == ''
+        // data.state_address == '' ||
+        data.birth == ''
+        // data.zip_code == '' ||
+        // data.tel_no == ''
       ) {
         let alert = this.alertCtrl.create({
           title: 'Please complete your personal details',

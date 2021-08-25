@@ -96,12 +96,12 @@ export class EventsPage {
     })
   }
 
-  goToEventView(id: string,isPast:boolean) {
+  goToEventView(id: string,isPast?:boolean) {
     this.storage.get(LOGGED_IN_KEY).then(isLoggedIn=>{
       if(isLoggedIn){
     this.navCtrl.push(EventsViewPage, {
       id: id,
-      past:isPast
+      past:isPast != null ? true: false
     });
   }
   else{
